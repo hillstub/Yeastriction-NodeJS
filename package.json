@@ -63,7 +63,7 @@
     "load-grunt-tasks": "^0.4.0"
   },
   "devDependencies": {
-    "assetmanager": "^0.1.1",
+    "assetmanager": "0.1.2",
     "grunt-karma": "^0.6.2",
     "grunt-mocha-test": "latest",
     "karma": "^0.10.4",
