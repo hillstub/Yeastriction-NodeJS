@@ -1,0 +1,10 @@
+<section data-ng-controller="LociController" data-ng-init="find()">
+	<ul class="loci unstyled">
+		<li data-ng-repeat="locus in loci">
+			<span>{{locus.created | date:'medium'}}</span> /
+			<h2><a data-ng-href="#!/crispr/loci/{{locus._id}}">{{locus.orf}}</a></h2>
+			<div>{{locus.sequence}}</div>
+		</li>
+	</ul>
+	<h1 data-ng-hide="!loci || loci.length">No loci yet. <br> Why don't you <a href="/#!/crispr/loci/create">Create One</a>?</h1>
+</section>

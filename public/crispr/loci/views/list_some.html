@@ -1,0 +1,131 @@
+<section data-ng-controller="LociController" data-ng-init="findSome()">
+	<h2>Let's kill some ORFs!</h2>
+	<form class="form-horizontal" role="form">
+		  <div class="form-group">
+		   <label class="col-md-3 control-label">Method</label>
+		   <div class="col-md-9">
+		    <div class="radio">
+		     <label>
+		      <input type="radio" ng-model="crispr_method" value="1">Method 1 (one locus)</label>
+		    </div>
+		    <div class="radio">
+		     <label>
+		      <input type="radio" ng-model="crispr_method" value="2">Method 2 (two loci)</label>
+		    </div>
+		   </div>
+		  </div>	
+		  <div class="form-group">
+		   <label class="col-md-3 control-label">Ranking</label>
+		   <div class="col-md-9">
+		    <div class="checkbox">
+		     <label>
+		      <input type="checkbox"  ng-model="ranking_restriction_sites">Presence of restriction sites</label>
+		    </div>
+		     <div class="checkbox">
+		     <label>
+		      <input type="checkbox"  ng-model="ranking_gc_content">AT-content</label>
+		    </div>
+		     <div class="checkbox">
+		     <label>
+		      <input type="checkbox"  ng-model="ranking_secondary_structure">Secondary gRNA structure</label>
+		    </div>
+		   </div>
+		  </div>		  
+		  <div class="form-group">
+		   <label class="col-md-3 control-label">Diagnostics</label>
+		   <div class="col-md-9">
+		    <div class="checkbox">
+		     <label>
+		      <input type="checkbox"  ng-model="show_diagnostic_primers"> Show diagnostic primers</label>
+		    </div>
+
+		   </div>
+		  </div>		  	  	
+	</form>	
+
+	<table class="table">
+		<thead>
+			<tr>
+				<td>Primer name</td>
+				<td>Primer sequence (5' → 3')</td>
+			</tr>
+		</thead>
+		<tbody data-ng-repeat="locus in loci">
+			<tr ng-show="crispr_method==1">
+				<td>
+					<a  ng-click="locus.isCollapsed = !locus.isCollapsed">
+						{{locus.symbol}}_targetRNA FW {{locus.target.enzymes.join(', ')}}
+						<span class="caret"></span>
+					</a>
+				</td>
+				<td class='dna_sequence'>{{method1_presequence}}<span class='highlight-sequence'>{{locus.target.sequence_wo_pam}}</span>{{method1_postsequence}}
+				</td>
+			</tr>	
+			<tr ng-show="crispr_method==2">
+				<td>
+					<a  ng-click="locus.isCollapsed = !locus.isCollapsed">
+						{{locus.symbol}}_targetRNA FW {{locus.target.enzymes.join(', ')}}
+						<span class="caret"></span>
+					</a>
+				</td>
+				<td class='dna_sequence'>{{method2_presequence}}<span class='highlight-sequence'>{{locus.target.sequence_wo_pam}}</span>{{method2_postsequence}}
+				</td>
+			</tr>
+			<tr ng-hide="!locus.isCollapsed">
+				<td colspan="2">
+					<div style="width:100%;max-height:300px;overflow:auto;">
+					    <table class="dna_sequence table table-striped table-hover" style="cursor: pointer;max-width:100%;">
+					    	<thead>
+					    		<tr>
+					    			<th>#</th>
+						        	<th > </th>
+						            <th >Target sequence </th>
+						            <th >Restriction enzymes </th>
+						            <th >AT content</th>
+						            <th >RNA score</th>
+						            <th >Total score</th>
+						            <th>RNA structure </th>
+					    		</tr>
+					    	</thead>
+					    	<tbody>
+						        <tr data-ng-repeat="target in locus.targets" ng-click="locus.target = target;$log.log($first);">
+						        <!--  orderBy:'-enzymes.length'-->
+						        	<td>{{$index}}</td>
+						        	<td ><input type="radio" ng-checked="locus.target == target"></td>
+						            <td >{{target.sequence}}</td>
+						            <td >{{target.enzymes.join(', ')}}</td>
+						            <td >{{1-target.GC_content | number:2}}</td>
+						            <td >{{target.rna_fold.score/20 | number:2}}</td>
+						            <td >{{target.score | number:2}}</td>
+						            <td popover="{{target.rna_fold.notation | split:20:' '}}" popover-placement="left" popover-trigger="mouseenter">{{target.rna_fold.notation | limitTo:20}}</td>
+						        </tr>
+						    </tbody>
+					    </table>  
+					  </div>
+				</td>
+			</tr>
+			<tr ng-show="crispr_method==1">
+				<td>{{locus.symbol}}_targetRNA RV {{locus.target.enzymes.join(', ')}}</td>
+				<td class='dna_sequence'>{{reverse_complement(method1_postsequence)}}<span class='highlight-sequence'>{{reverse_complement(locus.target.sequence_wo_pam)}}</span>{{reverse_complement(method1_presequence)}}			
+				</td>
+			</tr>														
+			<tr>
+				<td>{{locus.symbol}}_repair oligo fw</td>
+				<td class='dna_sequence'>{{locus.repair_oligo_fw}} </td>
+			</tr>
+			<tr>
+				<td>{{locus.symbol}}_repair oligo rv</td>
+				<td class='dna_sequence'>{{locus.repair_oligo_rv}}</td>
+			</tr>	
+			<tr ng-show="show_diagnostic_primers">
+				<td>{{locus.symbol}}_dg  fw</td>
+				<td class='dna_sequence'>{{locus.diagnostic_primers.forward}}</td>
+			</tr>
+			<tr ng-show="show_diagnostic_primers">
+				<td>{{locus.symbol}}_dg  rv</td>
+				<td class='dna_sequence'>{{locus.diagnostic_primers.reverse}}</td>
+			</tr>									
+		</tbody>
+	</table>
+	<h1 data-ng-hide="!loci || loci.length">Couldn't find any ORFs...</h1>
+</section>

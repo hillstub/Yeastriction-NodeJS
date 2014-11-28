@@ -1,0 +1,17 @@
+{
+    "name": "crispr",
+    "version": "0.0.0",
+    "description": "Some description of crispr",
+    "author": {
+        "name": "mean scaffold"
+    },
+    "mean": true,
+    "engines": {
+        "node": "0.10.x",
+        "npm": "1.4.x"
+    },
+    "dependencies": {
+        "execSync": "1.0.1-pre"
+    },
+    "license": "MIT"
+}

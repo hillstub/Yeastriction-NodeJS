@@ -1,0 +1,13 @@
+{
+	"folders":
+	[
+		{
+			"follow_symlinks": true,
+			"path": "/Users/hmvanrossum/Documents/Programming/crispr"
+		},
+		{
+			"follow_symlinks": true,
+			"path": "."
+		}
+	]
+}

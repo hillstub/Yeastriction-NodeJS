@@ -1,0 +1,66 @@
+<section data-ng-controller="UserSettingsController" data-ng-init="find_strains()">
+    <h1>Default settings</h1>
+    <form class="form-horizontal" role="form" data-ng-submit="update()">
+        <div class="form-group">
+            <label class="col-md-3 control-label">Method</label>
+            <div class="col-md-9">
+                <div class="radio">
+                    <label>
+                        <input type="radio" ng-model="user.crispr_method" value="1">Method 1 (one locus)</label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" ng-model="user.crispr_method" value="2">Method 2 (two loci)</label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">Ranking</label>
+            <div class="col-md-9">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" ng-model="user.ranking_restriction_sites">Presence of restriction sites</label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" ng-model="user.ranking_gc_content">AT-content</label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" ng-model="user.ranking_secondary_structure">Secondary gRNA structure</label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">Diagnostics</label>
+            <div class="col-md-9">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" ng-model="user.show_diagnostic_primers">Show diagnostic primers</label>
+                </div>
+
+            </div>
+         </div>
+         <div class="form-group">
+            <label for="inputStrain" class="col-md-3 control-label">Default yeast strain</label>
+
+            <div class="col-md-9">
+                <select class="form-control" ng-model="default_strain_id" ng-options="strain._id as strain.name for strain in strains"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputLoci" class="col-md-3 control-label">Restriction enzymes</label>
+            <div class="col-md-9">
+                <textarea class="form-control" id="inputRestrictionEnzymes" placeholder="HindIII" ng-model="restriction_enzymes"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-3 col-md-9">
+                <button type="submit" class="btn btn-info">
+                    <i ng-show="loading" class="fa fa-refresh fa-spin fa-1x"></i> Update
+                </button>
+            </div>
+        </div>
+    </form>
+
+</section>

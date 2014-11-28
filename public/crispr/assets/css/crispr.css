@@ -1,0 +1,17 @@
+.crispr_example h1:{background-color:purple}
+
+.dna_sequence {
+	/*max-width:  40em;  */
+	
+	max-width: 60ch;
+	word-wrap: break-word;
+	font-family: monospace;
+}
+
+.highlight_sequence {
+	color: red;
+}
+
+textarea {
+	min-height:200px;
+}

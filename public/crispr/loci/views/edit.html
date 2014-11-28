@@ -1,0 +1,46 @@
+<section data-ng-controller="LociController" data-ng-init="findOne();find_strains();">
+	<form class="form-horizontal col-md-6" role="form" data-ng-submit="update()">
+		<div class="form-group">
+			<label mean-token="'edit-orf'" for="orf" class="col-md-2 control-label">Orf</label>
+			<div class="col-md-10">
+				<input type="text" class="form-control" data-ng-model="locus.orf" id="orf" placeholder="Orf" required>
+			</div>
+		</div>
+		<div class="form-group">
+			<label mean-token="'edit-sequence'" for="sequence" class="col-md-2 control-label">Strain</label>
+			<div class="col-md-10">
+				<select class="form-control" ng-model="locus.strain_id" ng-options="strain._id as strain.name for strain in strains"></select>	
+			</div>
+		</div>
+		<div class="form-group">
+			<label mean-token="'edit-sequence'" for="sequence" class="col-md-2 control-label">Sequence</label>
+			<div class="col-md-10">
+				<textarea data-ng-model="locus.sequence" id="sequence" cols="30" rows="10" placeholder="Sequence" class="form-control" required></textarea>
+			</div>
+		</div>
+		<div class="form-group">
+			<label mean-token="'edit-start_orf'" for="start_orf" class="col-md-2 control-label">Start orf</label>
+			<div class="col-md-9">
+				<input type="text" class="form-control" data-ng-model="locus.start_orf" id="start_orf" placeholder="StartOrf" required>
+			</div>
+			 <div class="col-md-1">
+			      <p class="form-control-static">bp</p>
+			 </div>			
+		</div>		
+		<div class="form-group">
+			<label mean-token="'edit-end_orf'" for="end_orf" class="col-md-2 control-label">Einde orf</label>
+			<div class="col-md-9">
+				<input type="text" class="form-control" data-ng-model="locus.end_orf" id="end_orf" placeholder="EndOrf" required>
+			</div>
+			 <div class="col-md-1">
+			      <p class="form-control-static">bp</p>
+			 </div>				
+		</div>	
+		
+		<div class="form-group">
+			<div class="col-md-offset-2 col-md-10">
+				<button mean-token="'edit-submit'" type="submit" class="btn btn-default">Submit</button>
+			</div>
+		</div>
+	</form>
+</section>

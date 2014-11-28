@@ -1,0 +1,17 @@
+h1 {
+    text-align:center
+}
+
+ul.articles li:not(:last-child) {
+    border-bottom:1px solid #ccc
+}
+
+
+.popover {
+	width: 14.5em;
+	word-spacing: 20em; 
+}
+
+.highlight-sequence {
+	text-decoration: underline;
+}

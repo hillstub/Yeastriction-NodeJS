@@ -1,0 +1,28 @@
+<section data-ng-controller="LociController" data-ng-init="findOne()">
+    <div class="btn-group">
+    	<a class="btn btn-default" href="#"><b>{{locus.orf}}&nbsp;</b></a>
+		<a class="btn btn-default" href="/#!/crispr/loci/{{locus._id}}/edit">
+			<i class="glyphicon glyphicon-edit"></i>
+		</a>
+		<a class="btn btn-default" data-ng-click="remove();">
+    		<i class="glyphicon glyphicon-trash"></i>
+    	</a>
+	    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+	      Sequence
+	      <span class="caret"></span>
+	    </button>
+    	<div class="dna_sequence dropdown-menu">{{locus.sequence.substring(0, locus.start_orf)}}<span class="highlight_sequence">{{locus.sequence.substring(locus.start_orf, locus.end_orf)}}</span>{{locus.sequence.substring(locus.end_orf)}}</div>
+	</div>
+    <table class="table dna_sequence">
+        <tr data-ng-repeat="target in locus.targets |  orderBy:'rna_fold.deltaG'">
+        <!--  orderBy:'-enzymes.length'-->
+            <td>{{target.sequence}}</td>
+            <td>{{target.enzymes.length}}</td>
+            <td>{{target.enzymes.join(', ')}}</td>
+            <td>{{target.rna_fold.deltaG}}</td>
+            <td>{{target.rna_fold.notation}}</td>
+        </tr>
+    </table>
+    </ul>
+
+</section>

@@ -1,0 +1,221 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   '-g',
+1 verbose cli   'generator-angular-fullstack' ]
+2 info using npm@1.4.28
+3 info using node@v0.10.32
+4 verbose cache add [ 'generator-angular-fullstack', null ]
+5 verbose cache add name=undefined spec="generator-angular-fullstack" args=["generator-angular-fullstack",null]
+6 verbose parsed url { protocol: null,
+6 verbose parsed url   slashes: null,
+6 verbose parsed url   auth: null,
+6 verbose parsed url   host: null,
+6 verbose parsed url   port: null,
+6 verbose parsed url   hostname: null,
+6 verbose parsed url   hash: null,
+6 verbose parsed url   search: null,
+6 verbose parsed url   query: null,
+6 verbose parsed url   pathname: 'generator-angular-fullstack',
+6 verbose parsed url   path: 'generator-angular-fullstack',
+6 verbose parsed url   href: 'generator-angular-fullstack' }
+7 silly lockFile 41fe2745-generator-angular-fullstack generator-angular-fullstack
+8 verbose lock generator-angular-fullstack /Users/HMvanRossum/.npm/41fe2745-generator-angular-fullstack.lock
+9 silly lockFile 41fe2745-generator-angular-fullstack generator-angular-fullstack
+10 silly lockFile 41fe2745-generator-angular-fullstack generator-angular-fullstack
+11 verbose addNamed [ 'generator-angular-fullstack', '' ]
+12 verbose addNamed [ null, '*' ]
+13 silly lockFile 8bc0e010-generator-angular-fullstack generator-angular-fullstack@
+14 verbose lock generator-angular-fullstack@ /Users/HMvanRossum/.npm/8bc0e010-generator-angular-fullstack.lock
+15 silly addNameRange { name: 'generator-angular-fullstack',
+15 silly addNameRange   range: '*',
+15 silly addNameRange   hasData: false }
+16 verbose request where is /generator-angular-fullstack
+17 verbose request registry https://registry.npmjs.org/
+18 verbose request id bf4a88a54f793e17
+19 verbose url raw /generator-angular-fullstack
+20 verbose url resolving [ 'https://registry.npmjs.org/',
+20 verbose url resolving   './generator-angular-fullstack' ]
+21 verbose url resolved https://registry.npmjs.org/generator-angular-fullstack
+22 verbose request where is https://registry.npmjs.org/generator-angular-fullstack
+23 info trying registry request attempt 1 at 18:18:59
+24 http GET https://registry.npmjs.org/generator-angular-fullstack
+25 http 200 https://registry.npmjs.org/generator-angular-fullstack
+26 silly registry.get cb [ 200,
+26 silly registry.get   { date: 'Sat, 15 Nov 2014 17:18:59 GMT',
+26 silly registry.get     server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+26 silly registry.get     etag: '"DL9C3NACKVEC5XAJ2IVNC0QQX"',
+26 silly registry.get     'content-type': 'application/json',
+26 silly registry.get     'cache-control': 'max-age=60',
+26 silly registry.get     'content-length': '81020',
+26 silly registry.get     'accept-ranges': 'bytes',
+26 silly registry.get     via: '1.1 varnish',
+26 silly registry.get     age: '54',
+26 silly registry.get     'x-served-by': 'cache-fra1227-FRA',
+26 silly registry.get     'x-cache': 'HIT',
+26 silly registry.get     'x-cache-hits': '1',
+26 silly registry.get     'x-timer': 'S1416071939.643386,VS0,VE0',
+26 silly registry.get     vary: 'Accept',
+26 silly registry.get     'keep-alive': 'timeout=10, max=50',
+26 silly registry.get     connection: 'Keep-Alive' } ]
+27 silly addNameRange number 2 { name: 'generator-angular-fullstack',
+27 silly addNameRange   range: '*',
+27 silly addNameRange   hasData: true }
+28 silly addNameRange versions [ 'generator-angular-fullstack',
+28 silly addNameRange   [ '0.0.1',
+28 silly addNameRange     '0.0.2',
+28 silly addNameRange     '0.0.3',
+28 silly addNameRange     '0.0.4',
+28 silly addNameRange     '0.0.5',
+28 silly addNameRange     '0.1.0',
+28 silly addNameRange     '0.2.0',
+28 silly addNameRange     '1.0.0',
+28 silly addNameRange     '1.0.1',
+28 silly addNameRange     '1.1.0',
+28 silly addNameRange     '1.1.1',
+28 silly addNameRange     '1.2.0',
+28 silly addNameRange     '1.2.1',
+28 silly addNameRange     '1.2.2',
+28 silly addNameRange     '1.2.3',
+28 silly addNameRange     '1.2.4',
+28 silly addNameRange     '1.2.5',
+28 silly addNameRange     '1.2.6',
+28 silly addNameRange     '1.2.7',
+28 silly addNameRange     '1.3.0',
+28 silly addNameRange     '1.3.1',
+28 silly addNameRange     '1.3.2',
+28 silly addNameRange     '1.3.3',
+28 silly addNameRange     '1.4.0',
+28 silly addNameRange     '1.4.1',
+28 silly addNameRange     '1.4.2',
+28 silly addNameRange     '1.4.3',
+28 silly addNameRange     '2.0.0-rc1',
+28 silly addNameRange     '2.0.0',
+28 silly addNameRange     '2.0.1',
+28 silly addNameRange     '2.0.2',
+28 silly addNameRange     '2.0.3',
+28 silly addNameRange     '2.0.4',
+28 silly addNameRange     '2.0.5',
+28 silly addNameRange     '2.0.6',
+28 silly addNameRange     '2.0.7',
+28 silly addNameRange     '2.0.8',
+28 silly addNameRange     '2.0.9',
+28 silly addNameRange     '2.0.10',
+28 silly addNameRange     '2.0.11',
+28 silly addNameRange     '2.0.12',
+28 silly addNameRange     '2.0.13' ] ]
+29 verbose addNamed [ 'generator-angular-fullstack', '2.0.13' ]
+30 verbose addNamed [ '2.0.13', '2.0.13' ]
+31 silly lockFile ad937c6d-nerator-angular-fullstack-2-0-13 generator-angular-fullstack@2.0.13
+32 verbose lock generator-angular-fullstack@2.0.13 /Users/HMvanRossum/.npm/ad937c6d-nerator-angular-fullstack-2-0-13.lock
+33 silly lockFile 14910ca5-tor-angular-fullstack-2-0-13-tgz https://registry.npmjs.org/generator-angular-fullstack/-/generator-angular-fullstack-2.0.13.tgz
+34 verbose lock https://registry.npmjs.org/generator-angular-fullstack/-/generator-angular-fullstack-2.0.13.tgz /Users/HMvanRossum/.npm/14910ca5-tor-angular-fullstack-2-0-13-tgz.lock
+35 verbose addRemoteTarball [ 'https://registry.npmjs.org/generator-angular-fullstack/-/generator-angular-fullstack-2.0.13.tgz',
+35 verbose addRemoteTarball   '866333e9ca1e557336342b57b585582f65dd61bb' ]
+36 info retry fetch attempt 1 at 18:18:59
+37 verbose fetch to= /var/folders/m6/vs8fxp1x5jq43vv53lh6xh800000gq/T/npm-6327-Io3x3vda/registry.npmjs.org/generator-angular-fullstack/-/generator-angular-fullstack-2.0.13.tgz
+38 http GET https://registry.npmjs.org/generator-angular-fullstack/-/generator-angular-fullstack-2.0.13.tgz
+39 http 200 https://registry.npmjs.org/generator-angular-fullstack/-/generator-angular-fullstack-2.0.13.tgz
+40 silly lockFile 14910ca5-tor-angular-fullstack-2-0-13-tgz https://registry.npmjs.org/generator-angular-fullstack/-/generator-angular-fullstack-2.0.13.tgz
+41 silly lockFile 14910ca5-tor-angular-fullstack-2-0-13-tgz https://registry.npmjs.org/generator-angular-fullstack/-/generator-angular-fullstack-2.0.13.tgz
+42 silly lockFile ad937c6d-nerator-angular-fullstack-2-0-13 generator-angular-fullstack@2.0.13
+43 silly lockFile ad937c6d-nerator-angular-fullstack-2-0-13 generator-angular-fullstack@2.0.13
+44 silly lockFile 8bc0e010-generator-angular-fullstack generator-angular-fullstack@
+45 silly lockFile 8bc0e010-generator-angular-fullstack generator-angular-fullstack@
+46 silly resolved [ { name: 'generator-angular-fullstack',
+46 silly resolved     version: '2.0.13',
+46 silly resolved     description: 'Yeoman generator for creating MEAN stack applications, using MongoDB, Express, AngularJS, and Node',
+46 silly resolved     keywords:
+46 silly resolved      [ 'yeoman-generator',
+46 silly resolved        'mean',
+46 silly resolved        'mongodb',
+46 silly resolved        'angularjs',
+46 silly resolved        'express',
+46 silly resolved        'scaffold',
+46 silly resolved        'fullstack',
+46 silly resolved        'framework',
+46 silly resolved        'component',
+46 silly resolved        'front-end',
+46 silly resolved        'app' ],
+46 silly resolved     homepage: 'https://github.com/DaftMonk/generator-angular-fullstack',
+46 silly resolved     bugs: { url: 'https://github.com/DaftMonk/generator-angular-fullstack/issues' },
+46 silly resolved     author: { name: 'Tyler Henkel' },
+46 silly resolved     repository:
+46 silly resolved      { type: 'git',
+46 silly resolved        url: 'git://github.com/DaftMonk/generator-angular-fullstack.git' },
+46 silly resolved     scripts: { test: 'grunt test' },
+46 silly resolved     dependencies:
+46 silly resolved      { 'yeoman-generator': '~0.17.0',
+46 silly resolved        chalk: '~0.4.0',
+46 silly resolved        wiredep: '~0.4.2',
+46 silly resolved        'generator-ng-component': '~0.0.4' },
+46 silly resolved     peerDependencies: { yo: '>=1.2.0' },
+46 silly resolved     devDependencies:
+46 silly resolved      { chai: '^1.9.1',
+46 silly resolved        'fs-extra': '^0.9.1',
+46 silly resolved        grunt: '~0.4.1',
+46 silly resolved        'grunt-build-control': 'git://github.com/DaftMonk/grunt-build-control',
+46 silly resolved        'grunt-contrib-clean': '^0.6.0',
+46 silly resolved        'grunt-contrib-jshint': '^0.10.0',
+46 silly resolved        'grunt-conventional-changelog': '~1.0.0',
+46 silly resolved        'grunt-mocha-test': '^0.11.0',
+46 silly resolved        'grunt-release': '~0.6.0',
+46 silly resolved        'load-grunt-tasks': '~0.2.0',
+46 silly resolved        marked: '~0.2.8',
+46 silly resolved        mocha: '~1.21.0',
+46 silly resolved        q: '^1.0.1',
+46 silly resolved        semver: '~2.2.1',
+46 silly resolved        shelljs: '^0.3.0',
+46 silly resolved        'underscore.string': '^2.3.3' },
+46 silly resolved     engines: { node: '>=0.10.0', npm: '>=1.2.10' },
+46 silly resolved     licenses: [ [Object] ],
+46 silly resolved     _id: 'generator-angular-fullstack@2.0.13',
+46 silly resolved     _shasum: '866333e9ca1e557336342b57b585582f65dd61bb',
+46 silly resolved     _from: 'generator-angular-fullstack@',
+46 silly resolved     _npmVersion: '1.4.10',
+46 silly resolved     _npmUser: { name: 'daftmonk', email: 'tylerhenkel@hotmail.com' },
+46 silly resolved     maintainers: [ [Object] ],
+46 silly resolved     dist:
+46 silly resolved      { shasum: '866333e9ca1e557336342b57b585582f65dd61bb',
+46 silly resolved        tarball: 'http://registry.npmjs.org/generator-angular-fullstack/-/generator-angular-fullstack-2.0.13.tgz' },
+46 silly resolved     directories: {},
+46 silly resolved     _resolved: 'https://registry.npmjs.org/generator-angular-fullstack/-/generator-angular-fullstack-2.0.13.tgz' } ]
+47 info install generator-angular-fullstack@2.0.13 into /usr/local/lib
+48 info installOne generator-angular-fullstack@2.0.13
+49 verbose lib/node_modules/generator-angular-fullstack unbuild
+50 verbose tar unpack /Users/HMvanRossum/.npm/generator-angular-fullstack/2.0.13/package.tgz
+51 silly lockFile fc84baa9-ules-generator-angular-fullstack tar:///usr/local/lib/node_modules/generator-angular-fullstack
+52 verbose lock tar:///usr/local/lib/node_modules/generator-angular-fullstack /Users/HMvanRossum/.npm/fc84baa9-ules-generator-angular-fullstack.lock
+53 silly lockFile c6959355-lar-fullstack-2-0-13-package-tgz tar:///Users/HMvanRossum/.npm/generator-angular-fullstack/2.0.13/package.tgz
+54 verbose lock tar:///Users/HMvanRossum/.npm/generator-angular-fullstack/2.0.13/package.tgz /Users/HMvanRossum/.npm/c6959355-lar-fullstack-2-0-13-package-tgz.lock
+55 silly gunzTarPerm modes [ '755', '644' ]
+56 error Error: EACCES, mkdir '/usr/local/lib/node_modules/generator-angular-fullstack'
+56 error  { [Error: EACCES, mkdir '/usr/local/lib/node_modules/generator-angular-fullstack']
+56 error   errno: 3,
+56 error   code: 'EACCES',
+56 error   path: '/usr/local/lib/node_modules/generator-angular-fullstack',
+56 error   fstream_type: 'Directory',
+56 error   fstream_path: '/usr/local/lib/node_modules/generator-angular-fullstack',
+56 error   fstream_class: 'DirWriter',
+56 error   fstream_stack:
+56 error    [ '/usr/local/lib/node_modules/npm/node_modules/fstream/lib/dir-writer.js:36:23',
+56 error      '/usr/local/lib/node_modules/npm/node_modules/mkdirp/index.js:46:53',
+56 error      'Object.oncomplete (fs.js:107:15)' ] }
+57 error Please try running this command again as root/Administrator.
+58 error System Darwin 14.0.0
+59 error command "node" "/usr/local/bin/npm" "install" "-g" "generator-angular-fullstack"
+60 error cwd /Users/HMvanRossum/Documents/Programming/crispr
+61 error node -v v0.10.32
+62 error npm -v 1.4.28
+63 error path /usr/local/lib/node_modules/generator-angular-fullstack
+64 error fstream_path /usr/local/lib/node_modules/generator-angular-fullstack
+65 error fstream_type Directory
+66 error fstream_class DirWriter
+67 error code EACCES
+68 error errno 3
+69 error stack Error: EACCES, mkdir '/usr/local/lib/node_modules/generator-angular-fullstack'
+70 error fstream_stack /usr/local/lib/node_modules/npm/node_modules/fstream/lib/dir-writer.js:36:23
+70 error fstream_stack /usr/local/lib/node_modules/npm/node_modules/mkdirp/index.js:46:53
+70 error fstream_stack Object.oncomplete (fs.js:107:15)
+71 verbose exit [ 3, true ]
