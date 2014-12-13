@@ -18,6 +18,7 @@ module.exports = function(app, auth, database) {
     //      app.get('/crispr/import/remaining', loci.importRemainingLoci);
     app.get('/crispr/import/:strain_name/:remaining?', loci.importLoci);
     app.get('/crispr/loci', loci.all);
+    app.get('/crispr/locus', loci.one);
     app.post('/crispr/loci', /*authorization.requiresLogin,*/ loci.create);
     app.get('/crispr/loci/:locusId', loci.show);
     app.put('/crispr/loci/:locusId', /*authorization.requiresLogin, hasAuthorization,*/ loci.update);

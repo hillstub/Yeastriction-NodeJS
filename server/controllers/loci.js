@@ -189,6 +189,44 @@ exports.show = function(req, res) {
     }));
 };
 
+exports.one = function(req, res){
+    console.log("exports.one",req.query);
+    var query = {};
+    var args = {};
+    if (req.query && req.query.locus) {
+        query = {
+            $or: [{
+                'orf': req.query.locus
+            }, {
+                'symbol': req.query.locus
+            }],
+            'strain': req.query.strain
+        };
+        args = {
+            virtuals: true
+        };
+    }
+    Locus.findOne(query).populate('strain').exec(function(err, el) {
+        if (err) {
+            console.log(err);
+            res.render('error', {
+                status: 500
+            });
+        } else {
+            if(el === null){
+                return res.jsonp({});
+            }
+            var obj = el.toJSON(args);
+            el.getTargets(function(targets) {
+                obj.targets = targets;
+                el.getDiagnosticPrimers(function(diagnostic_primers) {
+                    obj.diagnostic_primers = diagnostic_primers;
+                    return res.jsonp(obj);
+                });
+            });
+        }
+    });    
+}
 /**
  * List of Locuss
  */

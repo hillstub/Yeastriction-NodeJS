@@ -1,47 +1,6 @@
 <section data-ng-controller="LociController" data-ng-init="findSome()">
 	<h2>Let's kill some ORFs!</h2>
-	<form class="form-horizontal" role="form">
-		  <div class="form-group">
-		   <label class="col-md-3 control-label">Method</label>
-		   <div class="col-md-9">
-		    <div class="radio">
-		     <label>
-		      <input type="radio" ng-model="crispr_method" value="1">Method 1 (one locus)</label>
-		    </div>
-		    <div class="radio">
-		     <label>
-		      <input type="radio" ng-model="crispr_method" value="2">Method 2 (two loci)</label>
-		    </div>
-		   </div>
-		  </div>	
-		  <div class="form-group">
-		   <label class="col-md-3 control-label">Ranking</label>
-		   <div class="col-md-9">
-		    <div class="checkbox">
-		     <label>
-		      <input type="checkbox"  ng-model="ranking_restriction_sites">Presence of restriction sites</label>
-		    </div>
-		     <div class="checkbox">
-		     <label>
-		      <input type="checkbox"  ng-model="ranking_gc_content">AT-content</label>
-		    </div>
-		     <div class="checkbox">
-		     <label>
-		      <input type="checkbox"  ng-model="ranking_secondary_structure">Secondary gRNA structure</label>
-		    </div>
-		   </div>
-		  </div>		  
-		  <div class="form-group">
-		   <label class="col-md-3 control-label">Diagnostics</label>
-		   <div class="col-md-9">
-		    <div class="checkbox">
-		     <label>
-		      <input type="checkbox"  ng-model="show_diagnostic_primers"> Show diagnostic primers</label>
-		    </div>
 
-		   </div>
-		  </div>		  	  	
-	</form>	
 
 	<table class="table">
 		<thead>
@@ -51,7 +10,7 @@
 			</tr>
 		</thead>
 		<tbody data-ng-repeat="locus in loci">
-			<tr ng-show="crispr_method==1">
+			<tr ng-show="crispr_method==1 && locus.target.sequence_wo_pam">
 				<td>
 					<a  ng-click="locus.isCollapsed = !locus.isCollapsed">
 						{{locus.symbol}}_targetRNA FW {{locus.target.enzymes.join(', ')}}
@@ -61,7 +20,7 @@
 				<td class='dna_sequence'>{{method1_presequence}}<span class='highlight-sequence'>{{locus.target.sequence_wo_pam}}</span>{{method1_postsequence}}
 				</td>
 			</tr>	
-			<tr ng-show="crispr_method==2">
+			<tr ng-show="crispr_method==2 && locus.target.sequence_wo_pam">
 				<td>
 					<a  ng-click="locus.isCollapsed = !locus.isCollapsed">
 						{{locus.symbol}}_targetRNA FW {{locus.target.enzymes.join(', ')}}
@@ -104,7 +63,7 @@
 					  </div>
 				</td>
 			</tr>
-			<tr ng-show="crispr_method==1">
+			<tr ng-show="crispr_method==1 && locus.target.sequence_wo_pam">
 				<td>{{locus.symbol}}_targetRNA RV {{locus.target.enzymes.join(', ')}}</td>
 				<td class='dna_sequence'>{{reverse_complement(method1_postsequence)}}<span class='highlight-sequence'>{{reverse_complement(locus.target.sequence_wo_pam)}}</span>{{reverse_complement(method1_presequence)}}			
 				</td>

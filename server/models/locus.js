@@ -141,6 +141,7 @@ LocusSchema.method('getTargets', function(cb) {
         if (err) throw err;
         fs.writeFileSync(path, variants.join('\n'));
         fs.close(fd);
+        console.log("bowtie -k 2 -v 3 "+process.env.GENOMES_DIR + locus.strain.name + " --suppress 2,3,4,5,6,7,8 -r " + path );
          exec("bowtie -k 2 -v 3 "+process.env.GENOMES_DIR + locus.strain.name + " --suppress 2,3,4,5,6,7,8 -r " + path + " 2> /dev/null | uniq -c | awk '{print $2,$1}'", function(error, stdout, stderr) {
             var bowtiehits = stdout.split('\n');
             var hits = {}; //object... see http://stackoverflow.com/questions/6657790/javascript-using-numeric-array-as-associate-array
@@ -173,7 +174,7 @@ LocusSchema.method('getTargets', function(cb) {
                 fasta += ">" + index + "\n" + value.sequence_wo_pam + rna_end + "\n";
             })
             //problem with YMR306W
-        //    console.log("echo \"" + fasta + "\" | RNAfold --noPS --MEA --noLP");
+            console.log("echo \"" + fasta + "\" | RNAfold --noPS --MEA --noLP");
             exec("echo \"" + fasta + "\" | RNAfold --noPS --MEA --noLP", {maxBuffer: 1024 * 1024}, function(error, stdout, stderr) {
                 var rows = stdout.split('\n');
                 _.each(rows, function(row, key) {

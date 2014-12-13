@@ -15,3 +15,7 @@
 textarea {
 	min-height:200px;
 }
+
+.nav-tabs {
+	margin-bottom: 20px;
+}

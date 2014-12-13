@@ -14,7 +14,11 @@ angular.module('mean.loci').factory('Loci', ['$resource',
                 url: 'crispr/loci/',
                 /*	        params  : { id: identity.id },*/
                 isArray: true
-            }
+            },
+             findOne: {
+                method: 'GET',
+                url: 'crispr/locus/'
+            }           
         });
     }
 ]);
