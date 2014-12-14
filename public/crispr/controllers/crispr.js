@@ -49,6 +49,7 @@ angular.module('mean.crispr').controller('CrisprController', ['$scope', '$rootSc
                         strain: $scope.form.strain
                     }, function(el) {
                         i++;
+                        console.log(locus,el);
                         if(el.hasOwnProperty('_id')){
                             console.log(el,Object.getOwnPropertyNames(el).length);
                             el.display_name = locus;
