@@ -29,7 +29,7 @@
                 </div>
             </form>
         </tab>
-        <tab heading="Settings" active="tabs[1].active">
+        <tab heading="View settings" active="tabs[1].active">
             <form class="form-horizontal" role="form">
                 <div class="form-group">
                     <label class="col-md-3 control-label">Method</label>
@@ -77,6 +77,9 @@
         <tab-heading>
         	 <i ng-show="loading" class="fa fa-refresh fa-spin fa-1x"></i> Targets
         </tab-heading>
+        <div class="alert alert-info" data-ng-show="loci_fetching.length > 0">
+        Fetching: {{loci_fetching.join(', ')}}
+        </div>
         <div class="alert alert-success" data-ng-show="loci_fetched.length > 0">
         Fetched: {{loci_fetched.join(', ')}}
         </div>
@@ -86,8 +89,8 @@
     <table class="table" data-ng-show="loci.length > 0">
 		<thead>
 			<tr>
-				<td>Primer name</td>
-				<td>Primer sequence (5' → 3')</td>
+				<th>Primer name</th>
+				<th>Primer sequence (5' → 3')</th>
 			</tr>
 		</thead>
 		<tbody data-ng-repeat="locus in loci">

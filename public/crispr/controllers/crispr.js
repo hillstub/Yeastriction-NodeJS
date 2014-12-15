@@ -3,46 +3,59 @@
 angular.module('mean.crispr').controller('CrisprController', ['$scope', '$rootScope',  '$location', '$filter', 'Global', 'Strains', 'Loci', //'Crispr','Strains',
     function($scope, $rootScope, $location, $filter, Global, Strains, Loci, Crispr) {
         $scope.global = Global;
+
+        
         $scope.crispr = {
             name: 'crispr'
         };
-        $scope.tabs = [{},{},{}];
+        $scope.tabs = [,,]; //just to be able to change tabs after loading the first locus
         $scope.loci = [];
+        $scope.loci_fetching = [];
         $scope.loci_fetched = [];
         $scope.loci_failed = [];
         $scope.user = ($scope.global.user ? $scope.global.user : ($rootScope.user ? $rootScope.user : null));
-        $scope.form = {
-            loci_list : "",
-            crispr_method : $scope.user.crispr_method,
-            show_diagnostic_primers : $scope.user.show_diagnostic_primers,
-            ranking_restriction_sites : $scope.user.ranking_restriction_sites,
-            ranking_gc_content : $scope.user.ranking_gc_content,
-            ranking_secondary_structure : $scope.user.ranking_secondary_structure
+        if(!!$scope.global.user){
+            $scope.form = {
+                loci_list : "",
+                crispr_method : $scope.global.user.crispr_method,
+                show_diagnostic_primers : $scope.global.user.show_diagnostic_primers,
+                ranking_restriction_sites : $scope.global.user.ranking_restriction_sites,
+                ranking_gc_content : $scope.global.user.ranking_gc_content,
+                ranking_secondary_structure : $scope.global.user.ranking_secondary_structure
+            };
         }
+        $rootScope.$on('loggedin', function() {
+            console.log("crispr.js loggedin");
+            $scope.global.user  =  $rootScope.user;
+        });         
+
+
 
 
         $scope.find_strains = function() {
-            var user = ($scope.global.user ? $scope.global.user : ($rootScope.user ? $rootScope.user : null));
-            console.log("User",user);
+           // var user = ($scope.global.user ? $scope.global.user : ($rootScope.user ? $rootScope.user : null));
+            console.log("find_strains User",$scope.global.user);
             Strains.query(function(strains) {
                 $scope.strains = strains;
-                $scope.form.strain = user.default_strain._id;
+                $scope.form.strain = $scope.global.user.default_strain._id;
             });
         };
 
 
         $scope.list_targets = function() {
             console.log("loci_list",$scope.form.loci_list);
-            var loci = $scope.form.loci_list.split(/[^A-z\d-]+/).map(function(x) {
+            $scope.loci_fetching = $scope.form.loci_list.split(/[^A-z\d-]+/).map(function(x) {
                 return x.toUpperCase();
             });
+            //only unqiue values
+            $scope.loci_fetching = $scope.loci_fetching.filter(function(v,i) { return $scope.loci_fetching.indexOf(v) == i; });
             $scope.loading = true;
             $scope.loci = [];
             $scope.loci_fetched = [];
             $scope.loci_failed = [];
-            if(loci.length > 0){
+            if($scope.loci_fetching.length > 0){
                 var i = 0;
-                loci.forEach(function(locus){ 
+                $scope.loci_fetching.forEach(function(locus){ 
                     console.log(locus);         
                     Loci.findOne({
                         locus: locus,
@@ -63,9 +76,11 @@ angular.module('mean.crispr').controller('CrisprController', ['$scope', '$rootSc
                         }else{
                             $scope.loci_failed.push(locus);
                         }
-                        if(i == loci.length){
+                        $scope.loci_fetching = $filter('filter')($scope.loci_fetching, "!"+locus);
+                        if($scope.loci_fetching.length == 0){
                             $scope.loading = false;
                         }
+                        
                        // $location.path('/crispr/someloci');
                     });
                 });
@@ -224,8 +239,8 @@ angular.module('mean.crispr').controller('CrisprController', ['$scope', '$rootSc
             $scope.loci.forEach(function(locus){
                 locus.targets.forEach(function(target){
                   target.enzymes = [];
-                    if(user.hasOwnProperty('restriction_enzymes') && user.restriction_enzymes instanceof Array){
-                        user.restriction_enzymes.forEach(function(enzyme) {
+                    if(!!$scope.global.user && $scope.global.user.hasOwnProperty('restriction_enzymes') && $scope.global.user.restriction_enzymes instanceof Array){
+                        $scope.global.user.restriction_enzymes.forEach(function(enzyme) {
                             if ($scope.restriction_enzymes.hasOwnProperty(enzyme) && (target.sequence_wo_pam.match($scope.restriction_enzymes[enzyme]) || $scope.reverse_complement(target.sequence_wo_pam).match($scope.restriction_enzymes[enzyme]))) {
                                 target.enzymes.push(enzyme);
                             }
@@ -243,6 +258,8 @@ angular.module('mean.crispr').controller('CrisprController', ['$scope', '$rootSc
                 $scope.locus = locus;
                 $scope.locus.strain_id = locus.strain._id;
             });
-        };
+        }; 
+
+
     }
 ]);
