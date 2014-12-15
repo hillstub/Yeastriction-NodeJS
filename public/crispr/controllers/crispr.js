@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('mean.crispr').controller('CrisprController', ['$scope', '$rootScope',  '$location', '$filter', 'Global', 'Strains', 'Loci', //'Crispr','Strains',
-    function($scope, $rootScope, $location, $filter, Global, Strains, Loci, Crispr) {
+angular.module('mean.crispr').controller('CrisprController', ['$scope', '$rootScope',  '$location', '$filter', 'Global', 'Strains', 'Loci', 'RestrictionEnzymes', //'Crispr','Strains',
+    function($scope, $rootScope, $location, $filter, Global, Strains, Loci, RestrictionEnzymes) {
         $scope.global = Global;
 
         
@@ -13,7 +13,12 @@ angular.module('mean.crispr').controller('CrisprController', ['$scope', '$rootSc
         $scope.loci_fetching = [];
         $scope.loci_fetched = [];
         $scope.loci_failed = [];
-        $scope.user = ($scope.global.user ? $scope.global.user : ($rootScope.user ? $rootScope.user : null));
+
+        $scope.method1_presequence = "TGCGCATGTTTCGGCGTTCGAAACTTCTCCGCAGTGAAAGATAAATGATC";
+        $scope.method1_postsequence = "GTTTTAGAGCTAGAAATAGCAAGTTAAAATAAGGCTAGTCCGTTATCAAC";
+        $scope.method2_presequence = "TGCGCATGTTTCGGCGTTCGAAACTTCTCCGCAGTGAAAGATAAATGATC";
+        $scope.method2_postsequence = "GTTTTAGAGCTAGAAATAGCAAGTTAAAATAAG";
+
         if(!!$scope.global.user){
             $scope.form = {
                 loci_list : "",
@@ -27,11 +32,8 @@ angular.module('mean.crispr').controller('CrisprController', ['$scope', '$rootSc
         $rootScope.$on('loggedin', function() {
             console.log("crispr.js loggedin");
             $scope.global.user  =  $rootScope.user;
-        });         
-
-
-
-
+        });
+        
         $scope.find_strains = function() {
            // var user = ($scope.global.user ? $scope.global.user : ($rootScope.user ? $rootScope.user : null));
             console.log("find_strains User",$scope.global.user);
@@ -87,49 +89,6 @@ angular.module('mean.crispr').controller('CrisprController', ['$scope', '$rootSc
             }
         };
 
-        $scope.method1_presequence = "TGCGCATGTTTCGGCGTTCGAAACTTCTCCGCAGTGAAAGATAAATGATC";
-        $scope.method1_postsequence = "GTTTTAGAGCTAGAAATAGCAAGTTAAAATAAGGCTAGTCCGTTATCAAC";
-        $scope.method2_presequence = "TGCGCATGTTTCGGCGTTCGAAACTTCTCCGCAGTGAAAGATAAATGATC";
-        $scope.method2_postsequence = "GTTTTAGAGCTAGAAATAGCAAGTTAAAATAAG";
-        $scope.restriction_enzymes = {
-            'ApaI': /GGGCCC/,
-            'BamHI': /GGATCC/,
-            'BglII': /AGATCT/,
-            'ClaI': /ATCGAT/,
-            'DraI': /TTTAAA/,
-            'EagI': /CGGCCG/,
-            'Eco31I': /GGTCTC/,
-            'Eco91I': /GGT.ACC/,
-            'EcoRI': /GAATTC/,
-            'EcoRV': /GATATC/,
-            'HaeIII': /GGCC/,
-            'HindIII': /AAGCTT/,
-            'HpaI': /CCGG/,
-            'KpnI': /GGTACC/,
-            'MluI': /ACGCGT/,
-            'NaeI': /GCCGGC/,
-            'NcoI': /CCATGG/,
-            'NdeI': /CATATG/,
-            'NheI': /GCTAGC/,
-            'NotI': /GCGGCCGC/,
-            'NsiI': /ATGCAT/,
-            'PdmI': /GAA.{4}TTC/,
-            'PfoI': /TCC.GGA/,
-            'PsiI': /TTATAA/,
-            'PvuI': /CGATCG/,
-            'PvuII': /CAGCTG/,
-            'SacI': /GAGCTC/,
-            'SalI': /GTCGAC/,
-            'SbfI': /CCTGCAGG/,
-            'SexAI': /ACC[AT]GGT/,
-            'SmaI': /CCCGGG/,
-            'SnaBI': /TACGTA/,
-            'SpeI': /ACTAGT/,
-            'SspI': /AATATT/,
-            'StuI': /AGGCCT/,
-            'XbaI': /TCTAGA/,
-            'XhoI': /CTCGAG/
-        };
 
         $scope.create = function() {
             var locus = new Loci({
@@ -241,7 +200,7 @@ angular.module('mean.crispr').controller('CrisprController', ['$scope', '$rootSc
                   target.enzymes = [];
                     if(!!$scope.global.user && $scope.global.user.hasOwnProperty('restriction_enzymes') && $scope.global.user.restriction_enzymes instanceof Array){
                         $scope.global.user.restriction_enzymes.forEach(function(enzyme) {
-                            if ($scope.restriction_enzymes.hasOwnProperty(enzyme) && (target.sequence_wo_pam.match($scope.restriction_enzymes[enzyme]) || $scope.reverse_complement(target.sequence_wo_pam).match($scope.restriction_enzymes[enzyme]))) {
+                            if (RestrictionEnzymes.hasRestrictionSite(target.sequence_wo_pam, enzyme)) {
                                 target.enzymes.push(enzyme);
                             }
                         });
