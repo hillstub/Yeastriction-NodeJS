@@ -128,15 +128,15 @@ exports.importLoci = function(req, res) {
                     };
                     if (!found) {
                         //    console.log("didn't find" + line[0]);
-                        //YAL001C   TFC3       1000    4573    ACTTGTAAAT...
+                        //YAL001C   TFC3       1001    4574    ACTTGTAAAT...
                         //0         1          2       3       4
                         var locus = new Locus({
                             orf: line[0],
                             symbol: line[1],
                             strain: strain._id,
                             sequence: line[4],
-                            start_orf: line[2],
-                            end_orf: line[3]
+                            start_orf: line[2]-1,
+                            end_orf: line[3]-1
                         });
 
 
