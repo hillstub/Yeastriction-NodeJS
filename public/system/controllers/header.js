@@ -46,7 +46,7 @@ angular.module('mean.system').controller('HeaderController', ['$scope', '$rootSc
         $scope.isCollapsed = false;
 
         $rootScope.$on('loggedin', function() {
-            console.log("header.js loggedin");
+            console.log('header.js loggedin');
             queryMenu('main', defaultMainMenu);
             $scope.global = {
                 authenticated: !!$rootScope.user,

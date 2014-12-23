@@ -1,6 +1,6 @@
 'use strict';
 
-console.log("loaded loci.js route");
+console.log('loaded loci.js route');
 //Setting up route
 angular.module('mean.loci').config(['$stateProvider',
     function($stateProvider) {

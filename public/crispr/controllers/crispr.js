@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('mean.crispr').controller('CrisprController', ['$scope', '$rootScope',  '$location', '$filter', 'Global', 'Strains', 'Loci', 'RestrictionEnzymes', //'Crispr','Strains',
-    function($scope, $rootScope, $location, $filter, Global, Strains, Loci, RestrictionEnzymes) {
+angular.module('mean.crispr').controller('CrisprController', ['$scope', '$rootScope', '$stateParams', '$location', '$filter', 'Global', 'Strains', 'Loci', 'RestrictionEnzymes', //'Crispr','Strains',
+    function($scope, $rootScope, $location, $stateParams, $filter, Global, Strains, Loci, RestrictionEnzymes) {
         $scope.global = Global;
 
         
@@ -14,14 +14,14 @@ angular.module('mean.crispr').controller('CrisprController', ['$scope', '$rootSc
         $scope.loci_fetched = [];
         $scope.loci_failed = [];
 
-        $scope.method1_presequence = "TGCGCATGTTTCGGCGTTCGAAACTTCTCCGCAGTGAAAGATAAATGATC";
-        $scope.method1_postsequence = "GTTTTAGAGCTAGAAATAGCAAGTTAAAATAAGGCTAGTCCGTTATCAAC";
-        $scope.method2_presequence = "TGCGCATGTTTCGGCGTTCGAAACTTCTCCGCAGTGAAAGATAAATGATC";
-        $scope.method2_postsequence = "GTTTTAGAGCTAGAAATAGCAAGTTAAAATAAG";
+        $scope.method1_presequence = 'TGCGCATGTTTCGGCGTTCGAAACTTCTCCGCAGTGAAAGATAAATGATC';
+        $scope.method1_postsequence = 'GTTTTAGAGCTAGAAATAGCAAGTTAAAATAAGGCTAGTCCGTTATCAAC';
+        $scope.method2_presequence = 'TGCGCATGTTTCGGCGTTCGAAACTTCTCCGCAGTGAAAGATAAATGATC';
+        $scope.method2_postsequence = 'GTTTTAGAGCTAGAAATAGCAAGTTAAAATAAG';
 
         if(!!$scope.global.user){
             $scope.form = {
-                loci_list : "",
+                loci_list : '',
                 crispr_method : $scope.global.user.crispr_method,
                 show_diagnostic_primers : $scope.global.user.show_diagnostic_primers,
                 ranking_restriction_sites : $scope.global.user.ranking_restriction_sites,
@@ -30,13 +30,13 @@ angular.module('mean.crispr').controller('CrisprController', ['$scope', '$rootSc
             };
         }
         $rootScope.$on('loggedin', function() {
-            console.log("crispr.js loggedin");
+            console.log('crispr loggedin',$rootScope.user);
             $scope.global.user  =  $rootScope.user;
         });
         
         $scope.find_strains = function() {
            // var user = ($scope.global.user ? $scope.global.user : ($rootScope.user ? $rootScope.user : null));
-            console.log("find_strains User",$scope.global.user);
+            console.log('find_strains User',$scope.global.user);
             Strains.query(function(strains) {
                 $scope.strains = strains;
                 $scope.form.strain = $scope.global.user.default_strain._id;
@@ -45,12 +45,12 @@ angular.module('mean.crispr').controller('CrisprController', ['$scope', '$rootSc
 
 
         $scope.list_targets = function() {
-            console.log("loci_list",$scope.form.loci_list);
+            console.log('loci_list',$scope.form.loci_list);
             $scope.loci_fetching = $scope.form.loci_list.split(/[^A-z\d-]+/).map(function(x) {
                 return x.toUpperCase();
             });
             //only unqiue values
-            $scope.loci_fetching = $scope.loci_fetching.filter(function(v,i) { return $scope.loci_fetching.indexOf(v) == i; });
+            $scope.loci_fetching = $scope.loci_fetching.filter(function(v,i) { return $scope.loci_fetching.indexOf(v) === i; });
             $scope.loading = true;
             $scope.loci = [];
             $scope.loci_fetched = [];
@@ -71,15 +71,15 @@ angular.module('mean.crispr').controller('CrisprController', ['$scope', '$rootSc
                             $scope.loci.push(el);
                             $scope.findSome();
                             $scope.loci_fetched.push(locus);
-                            if($scope.loci_fetched.length == 1){
+                            if($scope.loci_fetched.length === 1){
                                 $scope.tabs[2].active = true;
                                 //go to result tab page
                             }
                         }else{
                             $scope.loci_failed.push(locus);
                         }
-                        $scope.loci_fetching = $filter('filter')($scope.loci_fetching, "!"+locus);
-                        if($scope.loci_fetching.length == 0){
+                        $scope.loci_fetching = $filter('filter')($scope.loci_fetching, '!'+locus);
+                        if($scope.loci_fetching.length === 0){
                             $scope.loading = false;
                         }
                         
@@ -137,7 +137,7 @@ angular.module('mean.crispr').controller('CrisprController', ['$scope', '$rootSc
             });
         };*/
 
-        $scope.$watchGroup(['form.ranking_restriction_sites', 'form.ranking_gc_content','form.ranking_secondary_structure'], function(newValues, oldValues, scope) {
+        $scope.$watchGroup(['form.ranking_restriction_sites', 'form.ranking_gc_content','form.ranking_secondary_structure'], function() {
             $scope.updateRanking();
         });
 
@@ -154,16 +154,16 @@ angular.module('mean.crispr').controller('CrisprController', ['$scope', '$rootSc
                         max: Math.max.apply(Math, el.targets.map(function(target) { return target.GC_content;}))
                     }
 
-                }
+                };
                 el.targets.forEach(function(target) {
                     target.score = 0;
-                    if($scope.form.ranking_restriction_sites == true){
+                    if($scope.form.ranking_restriction_sites === true){
                         target.score += Math.min(1,target.enzymes.length);
                     }
-                    if($scope.form.ranking_gc_content == true){
+                    if($scope.form.ranking_gc_content === true){
                         target.score += 1-((target.GC_content-ranges.gc_content.min)/(ranges.gc_content.max - ranges.gc_content.min));
                     }
-                    if($scope.form.ranking_secondary_structure == true){
+                    if($scope.form.ranking_secondary_structure === true){
                         target.score += (target.rna_fold.score-ranges.rna_fold_score.min)/(ranges.rna_fold_score.max - ranges.rna_fold_score.min);
                     }
                     
@@ -173,26 +173,26 @@ angular.module('mean.crispr').controller('CrisprController', ['$scope', '$rootSc
                 el.targets = orderBy(el.targets, '-score');          
                 el.target = el.targets[0];
             }); 
-        }
+        };
 
         $scope.reverse_complement = function(sequence) {
             var replaceChars = {
-                "A": "T",
-                "T": "A",
-                "G": "C",
-                "C": "G",
-                "N": "N",
-                "a": "t",
-                "t": "a",
-                "g": "c",
-                "c": "g",
-                "n": "n"
+                'A': 'T',
+                'T': 'A',
+                'G': 'C',
+                'C': 'G',
+                'N': 'N',
+                'a': 't',
+                't': 'a',
+                'g': 'c',
+                'c': 'g',
+                'n': 'n'
             };
             sequence = sequence.replace(/[ATGC]/ig, function(match) {
                 return replaceChars[match];
             });
             return sequence.split('').reverse().join('');
-        }
+        };
 
         $scope.findSome = function() {
             $scope.loci.forEach(function(locus){

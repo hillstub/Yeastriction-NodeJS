@@ -86,20 +86,22 @@ exports.create = function(req, res, next) {
  */
 exports.update = function(req, res) {
     var user = req.user;
-    console.log("user",user);
-    console.log("req.body", req.body);
     //XXX save only values that are allowed to be saved
     user = _.extend(user, req.body);
-    console.log("user", user);
     user.save(function(err) {
         if (err) {
             //XXX fix correct redirect
+
             return res.send('users/settings', {
                 errors: err.errors,
                 user: user
             });
         } else {
-            res.jsonp(user);
+            //Completely inefficient to query again the db, but otherwise linking to the default_strain gives the previous value
+            User.findOne(user).populate('default_strain').exec(function(err, user){
+                res.jsonp(user);    
+            });
+            
         }
     });
 };
@@ -123,7 +125,7 @@ exports.user = function(req, res, next, id) {
         .exec(function(err, user) {
             if (err) return next(err);
             if (!user) return next(new Error('Failed to load User ' + id));
-            console.log("user",user);
+            console.log('user',user);
             req.profile = user;
             next();
         });

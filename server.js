@@ -18,7 +18,7 @@ console.log(config.db);
 //var db = mongoose.connect(config.db);
 
 var db = mongoose.connect(process.env.MONGO_URL);
-console.log("MONGO_URL", process.env.MONGO_URL);
+console.log('MONGO_URL', process.env.MONGO_URL);
 // Bootstrap Models, Dependencies, Routes and the app as an express app
 var app = require('./server/config/system/bootstrap')(passport, db);
 

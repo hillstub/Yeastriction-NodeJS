@@ -66,8 +66,10 @@ angular.module('mean.controllers.login', [])
                     $scope.strains = strains;
                 });
             };
-            $scope.user = ($scope.global.user ? $scope.global.user : ($rootScope.user ? $rootScope.user : null));
-            console.log("user",$scope.user);
+            $rootScope.$on('loggedin', function() {
+                $scope.global.user  =  $rootScope.user;
+            });            
+            $scope.user = $scope.global.user; 
             $scope.restriction_enzymes = [];
             if($scope.user && $scope.user.restriction_enzymes && $scope.user.restriction_enzymes instanceof Array){
                 $scope.restriction_enzymes = $scope.user.restriction_enzymes.join('\n');
@@ -75,15 +77,20 @@ angular.module('mean.controllers.login', [])
             $scope.default_strain_id = ($scope.user.default_strain ? $scope.user.default_strain._id : null);
             
             $scope.update = function() {
+                console.log($scope.user);
                 if (!$scope.user.updated) {
                     $scope.user.updated = [];
                 }
                 $scope.user.updated.push(new Date().getTime());
                 //because strain is a ref only its _id should be uploaded
-                $scope.user.default_strain = $scope.default_strain_id;
+                $scope.user.default_strain =  $scope.default_strain_id;
+                console.log($scope.user);
                 $scope.user.restriction_enzymes = $scope.restriction_enzymes.split(/[^A-z\d-]+/);
-                $http.post('/users/update', $scope.user).success(function(){
-                    console.log("succes");
+                $http.post('/users/update', $scope.user).success(function(user){
+                    console.log(user);
+                    $rootScope.user = user;
+                    $rootScope.$emit('loggedin');
+                    $location.url('/');
                 }).error(function(error){
                     console.log(error);
                 });

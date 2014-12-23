@@ -6,10 +6,8 @@
 var mongoose = require('mongoose'),
     Locus = mongoose.model('Locus'),
     Strain = mongoose.model('Strain'),
-    _ = require('lodash'),
-    url = require('url'),
-    utilities = require('../utilities'),
-    sh = require('execSync');
+    Stream = require('stream'),
+    _ = require('lodash');
 
 
 /**
@@ -82,13 +80,11 @@ exports.destroy = function(req, res) {
 };
 
 exports.importLoci = function(req, res) {
-    var remaining = (req.params.remaining == 'remaining');
+    var remaining = (req.params.remaining === 'remaining');
     var strain_name = req.params.strain_name;
     var fs = require('fs');
     var readline = require('readline');
-    var stream = require('stream');
     var path = require('path');
-    console.log('importLoci');
     //First remove the strain (and associated loci) from the database
     Strain.findOne({
         name: strain_name
@@ -97,37 +93,35 @@ exports.importLoci = function(req, res) {
             console.log(err);
         } else {
             if (!remaining) {
-                console.log("gaan we even verwijderen");
                 if (strain) {
                     strain.remove();
                 }
-                var strain = new Strain({
+                strain = new Strain({
                     name: strain_name
                 });
                 strain.save(function(err) {
                     if (err) {
-                        console.log("ERR", err);
+                        console.log('ERR', err);
                     } else {
                         console.log(strain);
                     }
                 });
             } else {
-                console.log("importRemaining2");
+                console.log('importRemaining2');
             }
-            var instream = fs.createReadStream(path.join(process.env.GENOMES_DIR,  strain_name + '.tab'));
-            var outstream = new stream;
+            var instream = fs.createReadStream(path.join(process.env.GENOMES_DIR, strain_name + '.tab'));
+            var outstream = new Stream();
             var rl = readline.createInterface(instream, outstream);
             rl.on('line', function(line) {
-                var line = line.split('\t');
-                Locus.findOne({
+                line = line.split('\t');
+             /*   Locus.findOne({
                     orf: line[0],
                     strain: strain._id
                 }, function(err, found) {
                     if (err) {
-                        console.log(err)
-                    };
-                    if (!found) {
-                        //    console.log("didn't find" + line[0]);
+                        console.log(err);
+                    }
+                    if (!found) {*/
                         //YAL001C   TFC3       1001    4574    ACTTGTAAAT...
                         //0         1          2       3       4
                         var locus = new Locus({
@@ -135,50 +129,37 @@ exports.importLoci = function(req, res) {
                             symbol: line[1],
                             strain: strain._id,
                             sequence: line[4],
-                            start_orf: line[2]-1,
-                            end_orf: line[3]-1
+                            start_orf: line[2] - 1,
+                            end_orf: line[3] //no minus one, so this value is now compatible with sequence.substring(start_orf,end_orf)
                         });
-
-
-
-
                         locus.save(function(err, item) {
                             if (err) {
-                                console.error("Locus save", err);
+                                console.error('Locus save', err);
                             }
-                            Locus.findOne(item).populate('strain').exec(function(err, item) {
+                         /*    Locus.findOne(item).populate('strain').exec(function(err, item) {
                                 if (err) {
-                                    console.error("Locus find", err);
+                                    console.error('Locus find', err);
                                 }
-                             /*   item.getTargets(function(targets) {
+                                  item.getTargets(function(targets) {
 
                                 });
-                                //to trigger calculating the targets
-                                /*  item.toJSON({
-                                     virtuals: true
-                                 });*/
-                            });
+                            });*/
                         });
-
-                    } else {
-                        console.log("found one");
+             /*       } else {
+                        console.log('found one');
                     }
-
-                });
-
+                });*/
             });
-
             rl.on('close', function() {
-                console.log("close file");
-
+                console.log('close file');
                 // do something on finish here
             });
-            return res.send("close file");
+            return res.send('close file');
         }
     });
 
 
-}
+};
 
 /**
  * Show an locus
@@ -189,49 +170,46 @@ exports.show = function(req, res) {
     }));
 };
 
-exports.one = function(req, res){
-    console.log("exports.one",req.query);
-    var query = {};
-    var args = {};
-    if (req.query && req.query.locus) {
-        query = {
-            $or: [{
-                'orf': req.query.locus
-            }, {
-                'symbol': req.query.locus
-            }],
-            'strain': req.query.strain
-        };
-        args = {
-            virtuals: true
-        };
-    }
-    Locus.findOne(query).populate('strain').exec(function(err, el) {
-        if (err) {
-            console.log(err);
-            res.render('error', {
-                status: 500
-            });
-        } else {
-            if(el === null){
-                return res.jsonp({});
-            }
-            var obj = el.toJSON(args);
-            el.getTargets(function(targets) {
-                obj.targets = targets;
-                el.getDiagnosticPrimers(function(diagnostic_primers) {
-                    obj.diagnostic_primers = diagnostic_primers;
-                    return res.jsonp(obj);
-                });
-            });
+exports.one = function(req, res) {
+        var query = {};
+        var args = {};
+        if (req.query && req.query.locus) {
+            query = {
+                $or: [{
+                    'orf': req.query.locus
+                }, {
+                    'symbol': req.query.locus
+                }],
+                'strain': req.query.strain
+            };
+            args = {
+                virtuals: true
+            };
         }
-    });    
-}
-/**
- * List of Locuss
- */
+        Locus.findOne(query).populate('strain').exec(function(err, el) {
+            if (err) {
+                res.render('error', {
+                    status: 500
+                });
+            } else {
+                if (el === null) {
+                    return res.jsonp({});
+                }
+                var obj = el.toJSON(args);
+                el.getTargets(function(targets) {
+                    obj.targets = targets;
+                    el.getDiagnosticPrimers(function(diagnostic_primers) {
+                        obj.diagnostic_primers = diagnostic_primers;
+                        return res.jsonp(obj);
+                    });
+                });
+            }
+        });
+    };
+    /**
+     * List of Locuss
+     */
 exports.all = function(req, res) {
-    console.log("exports.all");
     var query = {};
     var args = {};
     if (req.query && req.query.loci) {
@@ -254,32 +232,25 @@ exports.all = function(req, res) {
     }
     Locus.find(query).populate('strain').sort('symbol').exec(function(err, loci) {
         if (err) {
-            console.log(err);
             res.render('error', {
                 status: 500
             });
         } else {
             var docs = [];
             var i = 0;
-            if(loci.length == 0){
+            if (loci.length === 0) {
                 return res.jsonp([]);
             }
             _.each(loci, function(el) {
                 var obj = el.toJSON(args);
-                console.log(el.orf, "getting targets1");
                 el.getTargets(function(targets) {
-                    console.log(el.orf, "getting targets2");
                     obj.targets = targets;
                     el.getDiagnosticPrimers(function(diagnostic_primers) {
-                        console.log("getting diagnostic_primers");
                         obj.diagnostic_primers = diagnostic_primers;
                         docs.push(obj);
                         i++;
-                        if (i == loci.length) {
-                            console.log("loci.length", loci.length);
-                            console.log("i", i);
-                            console.log(docs.length);
-                            _.each(docs, function(doc){
+                        if (i === loci.length) {
+                            _.each(docs, function(doc) {
                                 console.log(doc.symbol);
                             });
                             return res.jsonp(docs);

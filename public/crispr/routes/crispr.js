@@ -5,6 +5,6 @@ angular.module('mean.crispr').config(['$stateProvider',
         $stateProvider.state('start crispr', {
             url: '/crispr/start',
             templateUrl: 'public/crispr/views/index.html'
-        })
+        });
     }
 ]);

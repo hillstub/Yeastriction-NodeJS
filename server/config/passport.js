@@ -79,7 +79,6 @@ module.exports = function(passport) {
                         twitter: profile._json
                     });
                     user.save(function(err) {
-                        if (err) console.log(err);
                         return done(err, user);
                     });
                 } else {
@@ -111,7 +110,6 @@ module.exports = function(passport) {
                         facebook: profile._json
                     });
                     user.save(function(err) {
-                        if (err) console.log(err);
                         return done(err, user);
                     });
                 } else {
@@ -140,7 +138,6 @@ module.exports = function(passport) {
                         github: profile._json
                     });
                     user.save(function(err) {
-                        if (err) console.log(err);
                         return done(err, user);
                     });
                 } else {
@@ -169,7 +166,6 @@ module.exports = function(passport) {
                         google: profile._json
                     });
                     user.save(function(err) {
-                        if (err) console.log(err);
                         return done(err, user);
                     });
                 } else {
@@ -198,7 +194,6 @@ module.exports = function(passport) {
                         provider: 'linkedin'
                     });
                     user.save(function(err) {
-                        if (err) console.log(err);
                         return done(err, user);
                     });
                 } else {

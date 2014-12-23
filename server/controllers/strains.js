@@ -4,8 +4,7 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
-    Strain = mongoose.model('Strain'),
-    _ = require('lodash');
+    Strain = mongoose.model('Strain');
 
 
 /**

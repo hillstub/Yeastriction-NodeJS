@@ -41,7 +41,6 @@ StrainSchema.statics.load = function(id, cb) {
 };
 
 StrainSchema.pre('remove', function(next) {
-    console.log("pre remove");
     Locus.remove({
         strain: this._id
     }).exec();
