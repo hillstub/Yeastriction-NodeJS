@@ -9,7 +9,8 @@ var mongoose = require('mongoose'),
     utilities = require('../utilities'),
     tmp = require('tmp'),
     fs = require('fs'),
-    exec = require('child_process').exec;
+    exec = require('child_process').exec,
+    vienna_rna = require('vienna_rna');
 
 /**
  * Locus Schema
@@ -137,7 +138,9 @@ LocusSchema.method('getTargets', function(cb) {
         fs.writeFile(path, variants.join('\n'), function(err){
             if(err){console.log(err);}
             fs.close(fd);
+            console.time('bowtie');
             exec('bowtie -k 2 -v 3 '+process.env.GENOMES_DIR + locus.strain.name + ' --suppress 2,3,4,5,6,7,8 -r ' + path + ' 2> /dev/null | uniq -c | awk \'{print $2,$1}\'', function(error, stdout, stderr) {
+                console.timeEnd('bowtie');
                 var bowtiehits = stdout.split('\n');
                 var hits = {}; //object... see http://stackoverflow.com/questions/6657790/javascript-using-numeric-array-as-associate-array
                 _.each(bowtiehits, function(value, key) {
@@ -164,29 +167,22 @@ LocusSchema.method('getTargets', function(cb) {
                 });
                 
                 var rna_end = 'GTTTTAGAGCTAGAAATAGCAAGTTAAAATAAGGCTAGTCCGTTATCAACTTGAAAAAGTGGCACCGAGTCGGTGGTGCTTTTTT';
-                var fasta = '';
-                _.each(targets, function(value, index) {
-                    fasta += '>' + index + '\n' + value.sequence_wo_pam + rna_end + '\n';
-                });
+                console.time("rna_fold");
+                var rnas = _.map(targets,function(value,key){return value.sequence_wo_pam + rna_end;});
                 //problem with YMR306W
-                exec('echo \'' + fasta + '\' | RNAfold --noPS --MEA --noLP', {maxBuffer: 1024 * 1024}, function(error, stdout, stderr) {
-                    var rows = stdout.split('\n');
-                    _.each(rows, function(row, key) {
-                        if ((found = row.match(/^\>(\d+)/)) !== null) {
-                            var data = rows[key + 4].match(/^([\.\(\{\)\}]+) \{ *([\.\-\d]+) d\=([\.\-\d]+)/);
-                            if (!!data) {
-                                targets[parseInt(found[1])].rna_fold = {
-                                    notation: data[1],
-                                    deltaG: parseFloat(data[2]),
-                                    d: parseFloat(data[3]),
-                                    score: data[1].substring(0, 20).split('.').length - 1
-                                };
-                            }
-                        }
+                vienna_rna.get_centroid_struct(rnas,function(err, rows){
+                    console.timeEnd("rna_fold");
+                    _.each(rows, function(structure, key) {
+                        targets[key].rna_fold = {
+                            notation: structure,
+                            score: structure.substring(0, 20).split('.').length - 1
+                        };
                     });
-                    locus.targets = targets;
+                 //   locus.targets = targets;
+                    
+                    return cb(targets);
+                    
                     cleanupCallback();
-                    //console.log(path);
                     locus.save(function(err) {
                         return cb(locus.targets);
                     });
