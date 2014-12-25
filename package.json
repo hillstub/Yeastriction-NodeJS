@@ -61,7 +61,7 @@
     "grunt-env": "^0.4.1",
     "grunt-nodemon": "0.2.0",
     "load-grunt-tasks": "^0.4.0",
-    "vienna_rna","hillstub/vienna_rna"
+    "vienna_rna":"hillstub/vienna_rna"
   },
   "devDependencies": {
     "assetmanager": "0.1.2",
