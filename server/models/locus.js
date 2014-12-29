@@ -71,6 +71,10 @@ var LocusSchema = new Schema({
         sequence: String
     }]
 });
+
+LocusSchema.index({symbol:1});
+LocusSchema.index({orf:1});
+LocusSchema.index({strain:1});
 //
 //LocusSchema.index({strain: 1, symbol: 1}, {unique: true, sparse: true});
 //LocusSchema.index({strain: 1, orf: 1}, {unique: true, sparse: true});
