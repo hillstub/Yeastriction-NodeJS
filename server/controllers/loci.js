@@ -6,7 +6,7 @@
 var mongoose = require('mongoose'),
     Locus = mongoose.model('Locus'),
     Strain = mongoose.model('Strain'),
-    Stream = require('stream'),
+    LineByLineReader = require('line-by-line'),
     _ = require('lodash');
 
 
@@ -80,22 +80,18 @@ exports.destroy = function(req, res) {
 };
 
 exports.importLoci = function(req, res) {
-    var remaining = (req.params.remaining === 'remaining');
     var strain_name = req.params.strain_name;
     var fs = require('fs');
-    var readline = require('readline');
     var path = require('path');
-    //First remove the strain (and associated loci) from the database
+    //First try to find the strain
     Strain.findOne({
         name: strain_name
     }, function(err, strain) {
         if (err) {
             console.log(err);
         } else {
-            if (!remaining) {
-                if (strain) {
-                    strain.remove();
-                }
+            //It's not present in the database, so create a new one
+            if (!strain) {
                 strain = new Strain({
                     name: strain_name
                 });
@@ -106,59 +102,52 @@ exports.importLoci = function(req, res) {
                         console.log(strain);
                     }
                 });
-            } else {
-                console.log('importRemaining2');
             }
-            var instream = fs.createReadStream(path.join(process.env.GENOMES_DIR, strain_name + '.tab'));
-            var outstream = new Stream();
-            var rl = readline.createInterface(instream, outstream);
-            rl.on('line', function(line) {
-                line = line.split('\t');
-             /*   Locus.findOne({
-                    orf: line[0],
-                    strain: strain._id
-                }, function(err, found) {
-                    if (err) {
-                        console.log(err);
+            var symbols = [];
+            var symbols_non_unique = [];
+            console.time('importLoci');
+            //Remove loci that are already associated with the (existing) strain
+            Locus.find({
+                strain: strain
+            }).remove(function(err) {
+                var lr = new LineByLineReader(path.join(process.env.GENOMES_DIR, strain_name + '.tab'));
+                lr.on('line', function(line) {
+                    line = line.split('\t');
+                    //YAL001C   TFC3       1001    4574    ACTTGTAAAT...
+                    //0         1          2       3       4
+                    var locus = new Locus({
+                        orf: line[0],
+                        strain: strain._id,
+                        sequence: line[4],
+                        start_orf: line[2] - 1,
+                        end_orf: line[3] //no minus one, so these values is now compatible with sequence.substring(start_orf,end_orf) giving the whole ORF
+                    });
+                    if(line[1]){
+                        locus.symbol = line[1];
+                        if(symbols.indexOf(line[1]) > -1){
+                            symbols_non_unique.push(line[1]);
+                        }else{
+                            symbols.push(line[1]);
+                        }
                     }
-                    if (!found) {*/
-                        //YAL001C   TFC3       1001    4574    ACTTGTAAAT...
-                        //0         1          2       3       4
-                        var locus = new Locus({
-                            orf: line[0],
-                            symbol: line[1],
-                            strain: strain._id,
-                            sequence: line[4],
-                            start_orf: line[2] - 1,
-                            end_orf: line[3] //no minus one, so this value is now compatible with sequence.substring(start_orf,end_orf)
-                        });
-                        locus.save(function(err, item) {
-                            if (err) {
-                                console.error('Locus save', err);
-                            }
-                         /*    Locus.findOne(item).populate('strain').exec(function(err, item) {
-                                if (err) {
-                                    console.error('Locus find', err);
-                                }
-                                  item.getTargets(function(targets) {
-
-                                });
-                            });*/
-                        });
-             /*       } else {
-                        console.log('found one');
-                    }
-                });*/
+                    locus.save(function(err, item) {
+                        if (err) {
+                            console.error('Locus error', '\''+line[1]+'\'', locus.symbol);
+                        }
+                    });
+                });
+                lr.on('end', function(line) {
+                    console.log(line);
+                    Locus.update({strain: strain, symbol: { $in: symbols_non_unique}}, { $set: { symbol: null }}, { multi: true }, function(err){
+                        console.log(err);                       
+                        console.log('close file', symbols_non_unique);
+                        console.timeEnd('importLoci');
+                    });
+                });
+                return res.send('close file');
             });
-            rl.on('close', function() {
-                console.log('close file');
-                // do something on finish here
-            });
-            return res.send('close file');
         }
     });
-
-
 };
 
 /**
@@ -171,44 +160,44 @@ exports.show = function(req, res) {
 };
 
 exports.one = function(req, res) {
-        var query = {};
-        var args = {};
-        if (req.query && req.query.locus) {
-            query = {
-                $or: [{
-                    'orf': req.query.locus
-                }, {
-                    'symbol': req.query.locus
-                }],
-                'strain': req.query.strain
-            };
-            args = {
-                virtuals: true
-            };
-        }
-        Locus.findOne(query).populate('strain').exec(function(err, el) {
-            if (err) {
-                res.render('error', {
-                    status: 500
-                });
-            } else {
-                if (el === null) {
-                    return res.jsonp({});
-                }
-                var obj = el.toJSON(args);
-                el.getTargets(function(targets) {
-                    obj.targets = targets;
-                    el.getDiagnosticPrimers(function(diagnostic_primers) {
-                        obj.diagnostic_primers = diagnostic_primers;
-                        return res.jsonp(obj);
-                    });
-                });
+    var query = {};
+    var args = {};
+    if (req.query && req.query.locus) {
+        query = {
+            $or: [{
+                'orf': req.query.locus
+            }, {
+                'symbol': req.query.locus
+            }],
+            'strain': req.query.strain
+        };
+        args = {
+            virtuals: true
+        };
+    }
+    Locus.findOne(query).populate('strain').exec(function(err, el) {
+        if (err) {
+            res.render('error', {
+                status: 500
+            });
+        } else {
+            if (el === null) {
+                return res.jsonp({});
             }
-        });
-    };
-    /**
-     * List of Locuss
-     */
+            var obj = el.toJSON(args);
+            el.getTargets(function(targets) {
+                obj.targets = targets;
+                el.getDiagnosticPrimers(function(diagnostic_primers) {
+                    obj.diagnostic_primers = diagnostic_primers;
+                    return res.jsonp(obj);
+                });
+            });
+        }
+    });
+};
+/**
+ * List of Locuss
+ */
 exports.all = function(req, res) {
     var query = {};
     var args = {};
@@ -258,7 +247,6 @@ exports.all = function(req, res) {
                     });
                 });
             });
-
         }
     });
 };

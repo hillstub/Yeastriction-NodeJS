@@ -19,18 +19,25 @@ angular.module('mean.crispr').controller('CrisprController', ['$scope', '$rootSc
         $scope.method2_presequence = 'TGCGCATGTTTCGGCGTTCGAAACTTCTCCGCAGTGAAAGATAAATGATC';
         $scope.method2_postsequence = 'GTTTTAGAGCTAGAAATAGCAAGTTAAAATAAG';
 
-        if(!!$scope.global.user){
+        if($scope.global.user){
             $scope.form = {
-                loci_list : '',
                 crispr_method : $scope.global.user.crispr_method,
                 show_diagnostic_primers : $scope.global.user.show_diagnostic_primers,
                 ranking_restriction_sites : $scope.global.user.ranking_restriction_sites,
                 ranking_gc_content : $scope.global.user.ranking_gc_content,
                 ranking_secondary_structure : $scope.global.user.ranking_secondary_structure
             };
+        }else{
+            $scope.form = {
+                crispr_method : 1,
+                show_diagnostic_primers : true,
+                ranking_restriction_sites : false,
+                ranking_gc_content : true,
+                ranking_secondary_structure : true
+            };
         }
+        $scope.form.loci_list = '';
         $rootScope.$on('loggedin', function() {
-            console.log('crispr loggedin',$rootScope.user);
             $scope.global.user  =  $rootScope.user;
         });
         
@@ -39,14 +46,15 @@ angular.module('mean.crispr').controller('CrisprController', ['$scope', '$rootSc
             console.log('find_strains User',$scope.global.user);
             Strains.query(function(strains) {
                 $scope.strains = strains;
-                $scope.form.strain = $scope.global.user.default_strain._id;
+                if($scope.global.user){
+                    $scope.form.strain = $scope.global.user.default_strain._id;
+                }
             });
         };
 
 
         $scope.list_targets = function() {
-            console.log('loci_list',$scope.form.loci_list);
-            $scope.loci_fetching = $scope.form.loci_list.split(/[^A-z\d-]+/).map(function(x) {
+            $scope.loci_fetching = $scope.form.loci_list.match(/([\d\-A-z])+(,\d+)?/g).map(function(x) {
                 return x.toUpperCase();
             });
             //only unqiue values
@@ -56,14 +64,12 @@ angular.module('mean.crispr').controller('CrisprController', ['$scope', '$rootSc
             $scope.loci_fetched = [];
             $scope.loci_failed = [];
             if($scope.loci_fetching.length > 0){
-                var i = 0;
                 $scope.loci_fetching.forEach(function(locus){ 
                     console.log(locus);         
                     Loci.findOne({
                         locus: locus,
                         strain: $scope.form.strain
                     }, function(el) {
-                        i++;
                         console.log(locus,el);
                         if(el.hasOwnProperty('_id')){
                             console.log(el,Object.getOwnPropertyNames(el).length);
@@ -71,19 +77,17 @@ angular.module('mean.crispr').controller('CrisprController', ['$scope', '$rootSc
                             $scope.loci.push(el);
                             $scope.findSome();
                             $scope.loci_fetched.push(locus);
-                            if($scope.loci_fetched.length === 1){
-                                $scope.tabs[2].active = true;
-                                //go to result tab page
-                            }
                         }else{
                             $scope.loci_failed.push(locus);
+                        }
+                        if(($scope.loci_fetched.length + $scope.loci_failed.length) === 1){
+                            $scope.tabs[2].active = true;
+                            //go to result tab page
                         }
                         $scope.loci_fetching = $filter('filter')($scope.loci_fetching, '!'+locus);
                         if($scope.loci_fetching.length === 0){
                             $scope.loading = false;
                         }
-                        
-                       // $location.path('/crispr/someloci');
                     });
                 });
             }

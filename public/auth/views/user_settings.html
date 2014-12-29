@@ -1,4 +1,6 @@
 <section data-ng-controller="UserSettingsController" data-ng-init="find_strains()">
+    <div class="alert alert-danger animated fadeIn" ng-show="error">{{error}}</div>
+
     <h1>Default settings</h1>
     <form class="form-horizontal" role="form" data-ng-submit="update()">
         <div class="form-group">

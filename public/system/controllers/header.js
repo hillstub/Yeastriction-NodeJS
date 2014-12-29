@@ -14,17 +14,17 @@ angular.module('mean.system').controller('HeaderController', ['$scope', '$rootSc
             'link': 'start crispr'
         },
         {
-            'roles': ['annonymous'],
+            'roles': ['anonymous'],
             'title': 'Todo',
             'link': 'todo'
         },
         {
-            'roles': ['annonymous'],
+            'roles': ['anonymous'],
             'title': 'Protocol',
             'link': 'protocol'
         },
         {
-            'roles': ['annonymous'],
+            'roles': ['anonymous'],
             'title': 'Cite',
             'link': 'cite'
         }

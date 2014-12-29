@@ -84,15 +84,13 @@ angular.module('mean.controllers.login', [])
                 $scope.user.updated.push(new Date().getTime());
                 //because strain is a ref only its _id should be uploaded
                 $scope.user.default_strain =  $scope.default_strain_id;
-                console.log($scope.user);
                 $scope.user.restriction_enzymes = $scope.restriction_enzymes.split(/[^A-z\d-]+/);
                 $http.post('/users/update', $scope.user).success(function(user){
-                    console.log(user);
                     $rootScope.user = user;
                     $rootScope.$emit('loggedin');
                     $location.url('/');
                 }).error(function(error){
-                    console.log(error);
+                    $scope.error = error;
                 });
             };
         }

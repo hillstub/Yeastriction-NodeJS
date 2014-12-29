@@ -20,7 +20,7 @@ exports.render = function(req, res) {
             name: req.user.name,
             _id: req.user._id,
             username: req.user.username,
-            roles: (req.user ? req.user.roles : ['annonymous']),
+            roles: (req.user ? req.user.roles : ['anonymous']),
             restriction_enzymes: req.user.restriction_enzymes,
             crispr_method: req.user.crispr_method,
             default_strain: (req.user.default_strain ? req.user.default_strain : null),

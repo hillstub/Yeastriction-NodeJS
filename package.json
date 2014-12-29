@@ -26,14 +26,11 @@
   },
   "dependencies": {
     "assetmanager": "0.1.2",
-    "async": "0.9.0",
-    "deasync": "latest",
     "bower": "^1.2.8",
     "connect-flash": "^0.1.1",
     "connect-mongo": "^0.4.0",
     "consolidate": "^0.10.0",
     "dependable": "0.2.5",
-    "execSync": "1.0.1-pre",
     "express": "^3.4.7",
     "express-validator": "^1.0.1",
     "forever": "^0.10.11",
@@ -61,7 +58,8 @@
     "grunt-env": "^0.4.1",
     "grunt-nodemon": "0.2.0",
     "load-grunt-tasks": "^0.4.0",
-    "vienna_rna":"hillstub/vienna_rna"
+    "vienna_rna":"hillstub/vienna_rna",
+    "line-by-line":"^0.1.3"
   },
   "devDependencies": {
     "assetmanager": "0.1.2",

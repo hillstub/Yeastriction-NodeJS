@@ -87,17 +87,12 @@ exports.create = function(req, res, next) {
 exports.update = function(req, res) {
     var user = req.user;
     //XXX save only values that are allowed to be saved
-    user = _.extend(user, req.body);
+    user = _.extend(user, _.pick(req.body, 'default_strain','restriction_enzymes','crispr_method','show_diagnostic_primers','ranking_restriction_sites','ranking_gc_content','ranking_secondary_structure'));
     user.save(function(err) {
         if (err) {
-            //XXX fix correct redirect
-
-            return res.send('users/settings', {
-                errors: err.errors,
-                user: user
-            });
+            return res.status(400).send('Something went wrong while trying to save your settings.');
         } else {
-            //Completely inefficient to query again the db, but otherwise linking to the default_strain gives the previous value
+            //Completely inefficient to query the db again, but otherwise linking to the default_strain gives the previous value
             User.findOne(user).populate('default_strain').exec(function(err, user){
                 res.jsonp(user);    
             });

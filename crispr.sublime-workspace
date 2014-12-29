@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"loci",
+				"loci_list"
+			],
+			[
+				"rna",
+				"rna_fold"
+			],
+			[
 				"defa",
 				"default_strain"
 			],
@@ -18,10 +26,6 @@
 			[
 				"restr",
 				"restriction_enzymes"
-			],
-			[
-				"loci",
-				"loci_fetching"
 			],
 			[
 				"loci_fet",
@@ -180,18 +184,18 @@
 	"buffers":
 	[
 		{
-			"file": "/Users/hmvanrossum/Documents/Programming/crispr/server/config/passport.js",
+			"file": "/Users/hmvanrossum/Documents/Programming/crispr/server/routes/loci.js",
 			"settings":
 			{
-				"buffer_size": 6939,
+				"buffer_size": 1032,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "/Users/hmvanrossum/Documents/Programming/crispr/server/utilities.js",
+			"file": "/Users/hmvanrossum/Documents/Programming/crispr/public/system/views/index.html",
 			"settings":
 			{
-				"buffer_size": 664,
+				"buffer_size": 731,
 				"line_ending": "Unix"
 			}
 		},
@@ -199,23 +203,7 @@
 			"file": "/Users/hmvanrossum/Documents/Programming/crispr/server/controllers/loci.js",
 			"settings":
 			{
-				"buffer_size": 7749,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/Users/hmvanrossum/Documents/Programming/crispr/server/models/locus.js",
-			"settings":
-			{
-				"buffer_size": 8503,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"contents": "",
-			"settings":
-			{
-				"buffer_size": 0,
+				"buffer_size": 6879,
 				"line_ending": "Unix"
 			}
 		}
@@ -223,9 +211,17 @@
 	"build_system": "",
 	"command_palette":
 	{
-		"height": 347.0,
+		"height": 392.0,
 		"selected_items":
 		[
+			[
+				"pret",
+				"HTMLPrettify"
+			],
+			[
+				"html",
+				"HTMLPrettify"
+			],
 			[
 				"pack",
 				"Package Control: Install Package"
@@ -243,10 +239,6 @@
 				"HTMLPrettify"
 			],
 			[
-				"pret",
-				"HTMLPrettify"
-			],
-			[
 				"pre",
 				"HTMLPrettify"
 			],
@@ -255,15 +247,11 @@
 				"HTMLPrettify"
 			],
 			[
-				"html",
-				"HTMLPrettify"
-			],
-			[
 				"packages",
 				"Preferences: Browse Packages"
 			]
 		],
-		"width": 449.0
+		"width": 467.0
 	},
 	"console":
 	{
@@ -285,33 +273,49 @@
 	"expanded_folders":
 	[
 		"/Users/hmvanrossum/Documents/Programming/crispr",
+		"/Users/hmvanrossum/Documents/Programming/crispr/public/auth",
+		"/Users/hmvanrossum/Documents/Programming/crispr/public/auth/controllers",
+		"/Users/hmvanrossum/Documents/Programming/crispr/public/auth/views",
+		"/Users/hmvanrossum/Documents/Programming/crispr/public/system",
+		"/Users/hmvanrossum/Documents/Programming/crispr/public/system/views",
 		"/Users/hmvanrossum/Documents/Programming/crispr/server",
 		"/Users/hmvanrossum/Documents/Programming/crispr/server/controllers",
 		"/Users/hmvanrossum/Documents/Programming/crispr/server/models",
-		"/Users/hmvanrossum/Documents/Programming/crispr/server/routes",
-		"/Users/hmvanrossum/Documents/Programming/crispr/server/routes/@eaDir",
-		"/Users/hmvanrossum/Documents/Programming/crispr/server/routes/middlewares"
+		"/Users/hmvanrossum/Documents/Programming/crispr/server/views",
+		"/Users/hmvanrossum/Documents/Programming/crispr/server/views/layouts",
+		"/Users/hmvanrossum/Documents/Programming/crispr/server/views/users"
 	],
 	"file_history":
 	[
-		"/Users/hmvanrossum/Documents/Programming/crispr/server/controllers/strains.js",
+		"/Users/hmvanrossum/Documents/Programming/crispr/public/auth/controllers/auth.js",
+		"/Users/hmvanrossum/Documents/Programming/crispr/public/auth/views/user_settings.html",
 		"/Users/hmvanrossum/Documents/Programming/crispr/server/controllers/users.js",
+		"/Users/hmvanrossum/Documents/Programming/crispr/public/system/views/index.html",
+		"/Users/hmvanrossum/Documents/Programming/crispr/public/system/views/header.html",
+		"/Users/hmvanrossum/Documents/Programming/crispr/server/config/passport.js",
+		"/Users/hmvanrossum/Documents/Programming/crispr/server/utilities.js",
+		"/Users/hmvanrossum/Documents/Programming/crispr/server/controllers/loci.js",
 		"/Users/hmvanrossum/Documents/Programming/crispr/server/models/locus.js",
+		"/Users/hmvanrossum/Documents/Programming/crispr/apt-packages",
+		"/Users/hmvanrossum/Documents/Programming/crispr/package.json",
+		"/Users/hmvanrossum/Documents/Programming/crispr/public/crispr/controllers/crispr.js",
+		"/Users/hmvanrossum/Documents/Programming/crispr/public/system/controllers/header.js",
+		"/Users/hmvanrossum/Documents/Programming/crispr/node_modules/meanio/lib/mean.js",
+		"/Users/hmvanrossum/Documents/Programming/crispr/node_modules/meanio/lib/mean0.3.1.js",
+		"/Users/hmvanrossum/Documents/Programming/crispr/node_modules/meanio/lib/mean0.3.2.js",
+		"/Users/hmvanrossum/Documents/Programming/crispr/server/controllers/index.js",
+		"/Users/hmvanrossum/Documents/Programming/crispr/server/routes/menus.js",
+		"/Users/hmvanrossum/Documents/Programming/crispr/server/controllers/strains.js",
 		"/Users/hmvanrossum/Documents/Programming/crispr/.jshintrc",
 		"/Users/hmvanrossum/Documents/Programming/crispr/server/routes/crispr.js",
-		"/Users/hmvanrossum/Documents/Programming/crispr/public/crispr/controllers/crispr.js",
 		"/Users/hmvanrossum/Documents/Programming/crispr/public/crispr/loci/routes/loci.js",
 		"/Users/hmvanrossum/Documents/Programming/crispr/server.js",
 		"/Users/hmvanrossum/Documents/Programming/crispr/server/models/strain.js",
 		"/Users/hmvanrossum/Documents/Programming/crispr/public/system/services/split.js",
 		"/Users/hmvanrossum/Documents/Programming/crispr/public/crispr/loci/controllers/loci.js",
 		"/Users/hmvanrossum/Documents/Programming/crispr/public/crispr/routes/crispr.js",
-		"/Users/hmvanrossum/Documents/Programming/crispr/public/system/controllers/header.js",
-		"/Users/hmvanrossum/Documents/Programming/crispr/public/system/views/index.html",
-		"/Users/hmvanrossum/Documents/Programming/crispr/public/auth/controllers/auth.js",
 		"/Users/hmvanrossum/Documents/Programming/crispr/public/crispr/views/index.html",
 		"/Users/hmvanrossum/Documents/Programming/crispr/public/auth/views/login.html",
-		"/Users/hmvanrossum/Documents/Programming/crispr/server/controllers/loci.js",
 		"/Users/HMvanRossum/Library/Application Support/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
 		"/Users/HMvanRossum/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
 		"/Users/hmvanrossum/Documents/Programming/crispr/public/crispr/assets/css/crispr.css",
@@ -322,9 +326,7 @@
 		"/Users/hmvanrossum/Documents/Programming/crispr/public/crispr/loci/views/list_some.html",
 		"/Users/hmvanrossum/Documents/Programming/crispr/node_modules/bower/node_modules/tar/lib/buffer-entry.js",
 		"/Users/hmvanrossum/Documents/Programming/crispr/bower.json",
-		"/Users/hmvanrossum/Documents/Programming/crispr/public/system/views/header.html",
 		"/Users/HMvanRossum/Documents/Programming/crispr/public/system/services/split.js",
-		"/Users/hmvanrossum/Documents/Programming/crispr/public/auth/views/user_settings.html",
 		"/Users/hmvanrossum/Documents/Programming/crispr/public/auth/views/index.html",
 		"/Users/hmvanrossum/Documents/Programming/crispr/public/crispr/loci/assets/css/loci.css",
 		"/Users/hmvanrossum/Documents/Programming/crispr/Gruntfile.js",
@@ -334,10 +336,7 @@
 		"/Users/hmvanrossum/Documents/Programming/crispr/public/crispr/views/user_settings.html",
 		"/Users/hmvanrossum/Documents/Programming/crispr/public/system/lib/bootstrap/dist/css/bootstrap.css",
 		"/Users/hmvanrossum/Documents/Programming/crispr/server/models/user.js",
-		"/Users/hmvanrossum/Documents/Programming/crispr/server/controllers/index.js",
-		"/Users/hmvanrossum/Documents/Programming/crispr/server/routes/menus.js",
 		"/Users/hmvanrossum/Documents/Programming/crispr/public/system/services/global.js",
-		"/Users/hmvanrossum/Documents/Programming/crispr/server/config/passport.js",
 		"/Users/hmvanrossum/Documents/Programming/crispr/server/routes/users.js",
 		"/Users/hmvanrossum/Documents/Programming/crispr/public/system/routes/system.js",
 		"/Users/hmvanrossum/Documents/Programming/crispr/public/auth/routes/auth.js",
@@ -351,7 +350,6 @@
 		"/Users/hmvanrossum/Documents/Programming/crispr/packages/crispr/server/controllers/strains.js",
 		"/Users/hmvanrossum/Documents/Programming/crispr/packages/crispr/server/controllers/loci.js",
 		"/Users/hmvanrossum/Documents/Programming/crispr/packages/crispr/server/routes/loci.js",
-		"/Users/hmvanrossum/Documents/Programming/crispr/apt-packages",
 		"/Users/hmvanrossum/Documents/Programming/crispr/apt-repositories",
 		"/Users/hmvanrossum/Documents/Programming/crispr/packages/crispr/public/loci/views/list_some.html",
 		"/Users/hmvanrossum/Documents/Programming/crispr/packages/crispr/public/views/index.html",
@@ -416,12 +414,7 @@
 		"/Users/hmvanrossum/Documents/thesis/chapter2.tex",
 		"/Users/hmvanrossum/Downloads/templates/README.main",
 		"/Users/hmvanrossum/Desktop/xylglu.sorted.txt",
-		"/Users/hmvanrossum/Desktop/xylglu.txt",
-		"/Users/hmvanrossum/Documents/Manuscript kopie/word/numbering.xml",
-		"/Users/hmvanrossum/Documents/Manuscript kopie/word/document.xml",
-		"/Users/hmvanrossum/Sites/verlanglijst/public/js/services/articles.js",
-		"/Users/hmvanrossum/Sites/verlanglijst/public/views/articles/list.html",
-		"/Users/hmvanrossum/Sites/verlanglijst/public/js/controllers/articles.js"
+		"/Users/hmvanrossum/Desktop/xylglu.txt"
 	],
 	"find":
 	{
@@ -432,6 +425,8 @@
 		"height": 93.0,
 		"where_history":
 		[
+			"/Users/hmvanrossum/Documents/Programming/crispr",
+			"/Users/hmvanrossum/Documents/Programming/crispr/node_modules",
 			"/Users/hmvanrossum/Documents/Programming/crispr/server",
 			"/Users/hmvanrossum/Documents/Programming/crispr/public",
 			"/Users/hmvanrossum/Documents/Programming/crispr/server",
@@ -449,6 +444,9 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"isadmin",
+			"annonymous",
+			".cpp",
 			"console.log",
 			"sync",
 			"\"",
@@ -571,6 +569,7 @@
 		"regex": false,
 		"replace_history":
 		[
+			"anonymous",
 			"'",
 			"Arial",
 			"\\t",
@@ -618,24 +617,24 @@
 	"groups":
 	[
 		{
-			"selected": 3,
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "/Users/hmvanrossum/Documents/Programming/crispr/server/config/passport.js",
+					"file": "/Users/hmvanrossum/Documents/Programming/crispr/server/routes/loci.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 6939,
+						"buffer_size": 1032,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								6742,
-								6742
+								1031,
+								1031
 							]
 						],
 						"settings":
@@ -648,37 +647,36 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "/Users/hmvanrossum/Documents/Programming/crispr/server/utilities.js",
+					"file": "/Users/hmvanrossum/Documents/Programming/crispr/public/system/views/index.html",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 664,
+						"buffer_size": 731,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								663,
-								663
+								331,
+								331
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
@@ -687,15 +685,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 7749,
+						"buffer_size": 6879,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4611,
-								4611
+								3617,
+								3617
 							]
 						],
 						"settings":
@@ -705,68 +703,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 2864.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "/Users/hmvanrossum/Documents/Programming/crispr/server/models/locus.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 8503,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								6353,
-								6353
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 2713.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 0,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"auto_name": "",
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
 					"type": "text"
 				}
 			]
