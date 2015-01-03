@@ -4,9 +4,9 @@
  * Module dependencies. testadfadsf
  */
 var mongoose = require('mongoose'),
-    passport = require('passport'),
-    logger = require('mean-logger');
-
+    passport = require('passport');
+// no logger
+// logger = require('mean-logger'); 
 /**
  * Main application entry file.
  * Please note that the order of loading is important.
@@ -27,7 +27,7 @@ app.listen(config.port);
 console.log('Mean appppp started on port ' + config.port + ' (' + process.env.NODE_ENV + ')');
 
 // Initializing logger
-logger.init(app, passport, mongoose);
+//logger.init(app, passport, mongoose);
 
 // Expose app
 exports = module.exports = app;
