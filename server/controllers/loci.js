@@ -160,20 +160,15 @@ exports.show = function(req, res) {
 };
 
 exports.one = function(req, res) {
+    var args = {virtuals: true};
     var query = {};
-    var args = {};
     if (req.query && req.query.locus) {
-        query = {
-            $or: [{
-                'orf': req.query.locus
-            }, {
-                'symbol': req.query.locus
-            }],
-            'strain': req.query.strain
-        };
-        args = {
-            virtuals: true
-        };
+        query.strain = req.query.strain;
+        if(req.query.locus.match(/^Y[A-Z]{2}\d{3}[WC].*/) || req.query.locus.match(/Q\d{4}/)){
+            query.orf = req.query.locus;
+        } else {
+            query.symbol = req.query.locus;
+        }
     }
     Locus.findOne(query).populate('strain').exec(function(err, el) {
         if (err) {
