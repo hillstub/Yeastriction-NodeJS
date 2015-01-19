@@ -5,7 +5,7 @@ Yeastriction is a tool to find CRISPR/Cas9 target sites in various yeast genomes
 The tool is written in Javascript and based on the MEAN.io stack (MongoDB, Express, AngularJS and Node.js). Running it on your own workstation requires therefore, Node.JS, MongoDB and NPM. You can also run it as a Dokku container on a service like DigitalOcean.
 
 1. First install Dokku. 
-2. Next you need to install the following plugins
+2. Next you need to install the following plugins:
   + [dokku-apt](https://github.com/F4-Group/dokku-apt)
   + [dokku-mongodb-plugin](https://github.com/jeffutter/dokku-mongodb-plugin)
   + [dokku-persistent-storage](https://github.com/dyson/dokku-persistent-storage)
@@ -19,29 +19,29 @@ The tool is written in Javascript and based on the MEAN.io stack (MongoDB, Expre
   export GENOMES_DIR="/genomes/"
   ```
 
-Edit in the same directory the file `PERSISTENT_STORAGE` to link the `GENOMES_DIR` in the container to a directory on the server, e.g.:
+5. Edit in the same directory the file `PERSISTENT_STORAGE` to link the `GENOMES_DIR` in the container to a directory on the server, e.g.:
 
-```
-/home/<username>/genomes:/genomes
-```
+  ```
+  /home/<username>/genomes:/genomes
+  ```
 
-Create a MongoDB database for the newly created app: ```dokku mongodb:create <app>```
+6. Create a MongoDB database for the newly created app: ```dokku mongodb:create <app>```
 
-In a webbrowser go your Yeastriction instance and add a user.
+7. In a webbrowser go your Yeastriction instance and add a user.
 
-Using `dokku mongodb:console <app>` add the 'admin' role to your newly created user.
+8. Using `dokku mongodb:console <app>` add the 'admin' role to your newly created user.
 
-In your `genomes` directory for every strain you want to include you need a few files:
-+ STRAIN.tab (contains tab delimited data of all the orfs, including their up and down region)
-<br />The file should contain the following fields (seperated by tabs):
-```
-YAL001C   TFC3       1001    4574    ACTTGTAAAT...
-```
-The first field refers to the systematic name, the second to the symbolic name, followed by the start and stop position of the ORF within the sequence followed by the sequence of the ORF including its up and down sequence.
-+ STRAIN.fsa (the complete genome of the strain, if you've run bowtie, you don't actually need them anymore)
-+ STRAIN.(rev.)?(1|2).ebwt (files outputed by bowtie using the command `bowtie-build -r STRAIN.fsa STRAIN`)
+9. In your `genomes` directory for every strain you want to include you need a few files:
+  + STRAIN.tab (contains tab delimited data of all the orfs, including their up and down region)
+  <br />The file should contain the following fields (seperated by tabs):
+    ```
+    YAL001C   TFC3       1001    4574    ACTTGTAAAT...
+    ```
+    The first field refers to the systematic name, the second to the symbolic name, followed by the start and stop position of the ORF within the sequence followed by the sequence of the ORF including its up and down sequence.
+  + STRAIN.fsa (the complete genome of the strain, if you've run bowtie, you don't actually need them anymore)
+  + STRAIN.(rev.)?(1|2).ebwt (files outputed by bowtie using the command `bowtie-build -r STRAIN.fsa STRAIN`)
 
-Next import your strain by going to the URL `http://<yoururl>/crispr/import/STRAIN`
+10. Next import your strain by going to the URL `http://<yoururl>/crispr/import/STRAIN`
 
 # FAQ
 
