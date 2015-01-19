@@ -4,20 +4,20 @@ Yeastriction is a tool to find CRISPR/Cas9 target sites in various yeast genomes
 ## Deploy your own CRISPR/Cas9 service
 The tool is written in Javascript and based on the MEAN.io stack (MongoDB, Express, AngularJS and Node.js). Running it on your own workstation requires therefore, Node.JS, MongoDB and NPM. You can also run it as a Dokku container on a service like DigitalOcean.
 
-First install Dokku. 
-Next you need to install the following plugins
-+ [dokku-apt](https://github.com/F4-Group/dokku-apt)
-+ [dokku-mongodb-plugin](https://github.com/jeffutter/dokku-mongodb-plugin)
-+ [dokku-persistent-storage](https://github.com/dyson/dokku-persistent-storage)
+1. First install Dokku. 
+2. Next you need to install the following plugins
+  + [dokku-apt](https://github.com/F4-Group/dokku-apt)
+  + [dokku-mongodb-plugin](https://github.com/jeffutter/dokku-mongodb-plugin)
+  + [dokku-persistent-storage](https://github.com/dyson/dokku-persistent-storage)
 
-Push your Yeastriction copy to the dokku server. 
+3. Push your Yeastriction copy to the dokku server. 
 
-Modify in `/home/dokku/<yourapp>` the file `ENV` to include
+4. Modify in `/home/dokku/<yourapp>` the file `ENV` to include
 
-```
-export NODE_ENV="production"
-export GENOMES_DIR="/genomes/"
-```
+  ```
+  export NODE_ENV="production"
+  export GENOMES_DIR="/genomes/"
+  ```
 
 Edit in the same directory the file `PERSISTENT_STORAGE` to link the `GENOMES_DIR` in the container to a directory on the server, e.g.:
 
@@ -25,8 +25,7 @@ Edit in the same directory the file `PERSISTENT_STORAGE` to link the `GENOMES_DI
 /home/<username>/genomes:/genomes
 ```
 
-Create a MongoDB database for the newly created app
-```dokku mongodb:create <app>```
+Create a MongoDB database for the newly created app: ```dokku mongodb:create <app>```
 
 In a webbrowser go your Yeastriction instance and add a user.
 
@@ -45,7 +44,7 @@ The first field refers to the systematic name, the second to the symbolic name, 
 Next import your strain by going to the URL `http://<yoururl>/crispr/import/STRAIN`
 
 # FAQ
-------
+
 ## dokku-apt-plugin quits with an error
 If the error is something like `Err: http://archive.ubuntu.com quantal/main amd64 Packages 404 Not Found`, follow the instructions at [DigitalOcean](https://www.digitalocean.com/community/questions/ubunutu-dokku-docker-apt-get-update-issue).
 
@@ -53,12 +52,10 @@ If the error is something like `Err: http://archive.ubuntu.com quantal/main amd6
 Although Yeastriction is built with *Saccharomyces cerevisiae* in mind, it can be easily modified to work with other organisms. To do so, alter [public/crispr/controllers/crispr.js](https://github.com/hillstub/Yeastriction/blob/master/public/crispr/controllers/crispr.js#L57) to match your ORF symbols or systematic names and [server/controllers/loci.js](https://github.com/hillstub/Yeastriction/blob/master/server/controllers/loci.js#L167) to distinguish between symbolic name or systematic name.
 
 ## More Information
------
   * Visit us at [Linnovate.net](http://www.linnovate.net/).
   * Visit our [Ninja's Zone](http://www.meanleanstartupmachine.com/) for extended support.
 
 ## References
------
   * Braglia P, Percudani R & Dieci G (2005) Sequence context effects on oligo(dT) termination signal recognition by *Saccharomyces cerevisiae* RNA polymerase III. *J Biol Chem* 280: 19551–19562.
   * Hsu PD, Scott D A, Weinstein J A, et al. (2013) DNA targeting specificity of RNA-guided Cas9 nucleases. *Nat Biotechnol* 31: 827–832.
   * Langmead B, Trapnell C, Pop M & Salzberg SL (2009) Ultrafast and memory-efficient alignment of short DNA sequences to the human genome. *Genome Biol* 10: R25.
@@ -66,5 +63,4 @@ Although Yeastriction is built with *Saccharomyces cerevisiae* in mind, it can b
   * Wang Q & Wang L (2008) New methods enabling efficient incorporation of unnatural amino acids in yeast. *J Am Chem Soc* 130: 6066–6067.
 
 ## License
-------
 [The MIT License](http://opensource.org/licenses/MIT)
