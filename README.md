@@ -34,9 +34,11 @@ The tool is written in Javascript and based on the MEAN.io stack (MongoDB, Expre
 9. In your `genomes` directory for every strain you want to include you need a few files:
   + STRAIN.tab (contains tab delimited data of all the orfs, including their up and down region)
   <br />The file should contain the following fields (seperated by tabs):
+    
     ```
     YAL001C   TFC3       1001    4574    ACTTGTAAAT...
     ```
+    
     The first field refers to the systematic name, the second to the symbolic name, followed by the start and stop position of the ORF within the sequence followed by the sequence of the ORF including its up and down sequence.
   + STRAIN.fsa (the complete genome of the strain, if you've run bowtie, you don't actually need them anymore)
   + STRAIN.(rev.)?(1|2).ebwt (files outputed by bowtie using the command `bowtie-build -r STRAIN.fsa STRAIN`)
