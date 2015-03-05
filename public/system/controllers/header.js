@@ -15,11 +15,6 @@ angular.module('mean.system').controller('HeaderController', ['$scope', '$rootSc
         },
         {
             'roles': ['anonymous'],
-            'title': 'Todo',
-            'link': 'todo'
-        },
-        {
-            'roles': ['anonymous'],
             'title': 'Protocol',
             'link': 'protocol'
         },

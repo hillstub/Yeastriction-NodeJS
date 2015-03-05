@@ -17,6 +17,10 @@ angular.module('mean.system').config(['$stateProvider', '$urlRouterProvider',
                 url: '/todo',
                 templateUrl: 'public/system/views/index.html'
             })
+            .state('cite', {
+                url: '/cite',
+                templateUrl: 'public/system/views/cite.html'
+            })            
             .state('auth', {
                 templateUrl: 'public/auth/views/index.html'
             });

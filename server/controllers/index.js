@@ -4,8 +4,8 @@
 
 exports.render = function(req, res) {
 
- /*   var modules = [];
-
+    var modules = [];
+/*
     // Preparing angular modules list with dependencies
     for (var name in mean.modules) {
         modules.push({
@@ -30,6 +30,6 @@ exports.render = function(req, res) {
             ranking_gc_content: req.user.ranking_gc_content,
             ranking_secondary_structure: req.user.ranking_secondary_structure
         }) : 'null',
-        modules: [] //[JSON.stringify(modules)]
+        modules: [JSON.stringify(modules)]
     });
 };
