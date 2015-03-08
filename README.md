@@ -54,8 +54,7 @@ If the error is something like `Err: http://archive.ubuntu.com quantal/main amd6
 Although Yeastriction is built with *Saccharomyces cerevisiae* in mind, it can be easily modified to work with other organisms. To do so, alter [public/crispr/controllers/crispr.js](https://github.com/hillstub/Yeastriction/blob/master/public/crispr/controllers/crispr.js#L57) to match your ORF symbols or systematic names and [server/controllers/loci.js](https://github.com/hillstub/Yeastriction/blob/master/server/controllers/loci.js#L167) to distinguish between symbolic name or systematic name.
 
 ## More Information
-  * See our paper: 
-  Robert Mans, Harmen M. van Rossum, Melanie Wijsman, Antoon Backx, Niels G.A. Kuijpers, Marcel van den Broek, Pascale Daran-Lapujade, Jack T. Pronk, Antonius J.A. van Maris, Jean-Marc G. Daran (2015) CRISPR/Cas9: a molecular Swiss army knife for simultaneous introduction of multiple genetic modifications in *Saccharomyces cerevisiae*. *FEMS Yeast Research* **16**. [http://femsyr.oxfordjournals.org/cgi/reprint/fov004?ijkey=zGJzsH4MbNfwSzd&keytype=ref](http://femsyr.oxfordjournals.org/cgi/reprint/fov004?ijkey=zGJzsH4MbNfwSzd&keytype=ref)
+  * See our paper: <br /> Robert Mans, Harmen M. van Rossum, Melanie Wijsman, Antoon Backx, Niels G.A. Kuijpers, Marcel van den Broek, Pascale Daran-Lapujade, Jack T. Pronk, Antonius J.A. van Maris, Jean-Marc G. Daran (2015) CRISPR/Cas9: a molecular Swiss army knife for simultaneous introduction of multiple genetic modifications in *Saccharomyces cerevisiae*. *FEMS Yeast Research* **16**. [http://femsyr.oxfordjournals.org/cgi/reprint/fov004?ijkey=zGJzsH4MbNfwSzd&keytype=ref](http://femsyr.oxfordjournals.org/cgi/reprint/fov004?ijkey=zGJzsH4MbNfwSzd&keytype=ref)
 
 ## References
   * Braglia P, Percudani R & Dieci G (2005) Sequence context effects on oligo(dT) termination signal recognition by *Saccharomyces cerevisiae* RNA polymerase III. *J Biol Chem* 280: 19551–19562.
