@@ -20,7 +20,7 @@ angular.module('mean.system').controller('HeaderController', ['$scope', '$rootSc
         },
         {
             'roles': ['anonymous'],
-            'title': 'Cite',
+            'title': 'Paper',
             'link': 'cite'
         }
         ];
