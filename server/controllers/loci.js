@@ -122,24 +122,35 @@ exports.importLoci = function(req, res) {
                         start_orf: line[2] - 1,
                         end_orf: line[3] //no minus one, so these values is now compatible with sequence.substring(start_orf,end_orf) giving the whole ORF
                     });
-                    if(line[1]){
+                    if (line[1]) {
                         locus.symbol = line[1];
-                        if(symbols.indexOf(line[1]) > -1){
+                        if (symbols.indexOf(line[1]) > -1) {
                             symbols_non_unique.push(line[1]);
-                        }else{
+                        } else {
                             symbols.push(line[1]);
                         }
                     }
                     locus.save(function(err, item) {
                         if (err) {
-                            console.error('Locus error', '\''+line[1]+'\'', locus.symbol);
+                            console.error('Locus error', '\'' + line[1] + '\'', locus.symbol);
                         }
                     });
                 });
                 lr.on('end', function(line) {
                     console.log(line);
-                    Locus.update({strain: strain, symbol: { $in: symbols_non_unique}}, { $set: { symbol: null }}, { multi: true }, function(err){
-                        console.log(err);                       
+                    Locus.update({
+                        strain: strain,
+                        symbol: {
+                            $in: symbols_non_unique
+                        }
+                    }, {
+                        $set: {
+                            symbol: null
+                        }
+                    }, {
+                        multi: true
+                    }, function(err) {
+                        console.log(err);
                         console.log('close file', symbols_non_unique);
                         console.timeEnd('importLoci');
                     });
@@ -160,16 +171,19 @@ exports.show = function(req, res) {
 };
 
 exports.one = function(req, res) {
-    var args = {virtuals: true};
+    var args = {
+        virtuals: true
+    };
     var query = {};
     if (req.query && req.query.locus) {
         query.strain = req.query.strain;
-        if(req.query.locus.match(/^Y[A-Z]{2}\d{3}[WC].*/) || req.query.locus.match(/Q\d{4}/)){
+        if (req.query.locus.match(/^Y[A-Z]{2}\d{3}[WC].*/) || req.query.locus.match(/Q\d{4}/)) {
             query.orf = req.query.locus;
         } else {
             query.symbol = req.query.locus;
         }
     }
+
     Locus.findOne(query).populate('strain').exec(function(err, el) {
         if (err) {
             res.render('error', {
@@ -179,14 +193,39 @@ exports.one = function(req, res) {
             if (el === null) {
                 return res.jsonp({});
             }
-            var obj = el.toJSON(args);
-            el.getTargets(function(targets) {
-                obj.targets = targets;
-                el.getDiagnosticPrimers(function(diagnostic_primers) {
-                    obj.diagnostic_primers = diagnostic_primers;
-                    return res.jsonp(obj);
+            Strain.findOne({
+                'name': 'S288C'
+            }, function(err, S288C) {
+                Locus.findOne({
+                    'orf': el.orf,
+                    strain: S288C.id
+                }, function(err, S288C_orf) {
+                    var obj = el.toJSON(args);
+                    obj.error_msg = [];
+                    if (!err && S288C_orf) {
+                        var diff_length = (S288C_orf.end_orf - S288C_orf.start_orf) - (el.end_orf - el.start_orf);
+                        if(diff_length < 0){
+                            obj.error_msg.push('The length of the ORF is '+(-diff_length)+' nucleotides larger than it\'s ORF in S288C.');
+                        }else if(diff_length > 0){
+                            obj.error_msg.push('The length of the ORF is '+(diff_length)+' nucleotides smaller than it\'s ORF in S288C.');
+                        }
+                     //   console.log("S288C_orf", S288C_orf);
+                    } else {
+                       obj.error_msg.push('Couldn\'t find this ORF in the S288C genome');
+                    }
+                    if(obj.sequence.substring(obj.start_orf, obj.end_orf).indexOf('N') > -1){
+                        obj.error_msg.push('The ORF sequence contains N as a nucleotide.');
+                    }
+                    el.getTargets(function(targets) {
+                        obj.targets = targets;
+                        el.getDiagnosticPrimers(function(diagnostic_primers) {
+                            obj.diagnostic_primers = diagnostic_primers;
+                            return res.jsonp(obj);
+                        });
+                    });
                 });
             });
+
         }
     });
 };

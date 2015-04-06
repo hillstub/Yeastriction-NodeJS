@@ -63,17 +63,20 @@ angular.module('mean.crispr').controller('CrisprController', ['$scope', '$rootSc
             $scope.loci = [];
             $scope.loci_fetched = [];
             $scope.loci_failed = [];
+            $scope.errors = false;
             if($scope.loci_fetching.length > 0){
                 $scope.loci_fetching.forEach(function(locus){ 
-                    console.log(locus);         
+                           
                     Loci.findOne({
                         locus: locus,
                         strain: $scope.form.strain
                     }, function(el) {
-                        console.log(locus,el);
+                        console.log(el);  
                         if(el.hasOwnProperty('_id')){
-                            console.log(el,Object.getOwnPropertyNames(el).length);
                             el.display_name = locus;
+                            if(!$scope.errors && el.hasOwnProperty('error_msg') && el.error_msg.length > 0){
+                                $scope.errors = true;
+                            }
                             $scope.loci.push(el);
                             $scope.findSome();
                             $scope.loci_fetched.push(locus);
@@ -147,7 +150,7 @@ angular.module('mean.crispr').controller('CrisprController', ['$scope', '$rootSc
 
         $scope.updateRanking = function(){
             $scope.loci.forEach(function(el) {
-                
+                var i =0;
                 var ranges = {
                     rna_fold_score : { 
                         min : Math.min.apply(Math, el.targets.map(function(target) {  return target.rna_fold.score;})),

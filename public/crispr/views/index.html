@@ -86,6 +86,19 @@
         <div class="alert alert-warning" data-ng-show="loci_failed.length > 0">
 		   Couldn't find: {{loci_failed.join(', ')}}
 		</div>
+		 <div class="alert alert-danger" data-ng-show="errors">
+		 	We strongly advise you to double check the target sites and repair fragments of the following ORF(s), as some differences compared to S288C were encountered:
+		 	<ul>
+		 	<li data-ng-repeat="locus in loci" data-ng-show="locus.error_msg.length > 0">
+		 		<b>{{locus.display_name}}:</b>
+		 		<ul>
+			 		<li data-ng-repeat="error in locus.error_msg">
+			 			{{error}}
+			 		</li>
+			 	</ul>
+		 	</li>
+		 	</ul>
+        </div>
     <table class="table" data-ng-show="loci.length > 0">
 		<thead>
 			<tr>
