@@ -1,3 +1,3 @@
 define(function() {
-    return typeof undefined;
+	return typeof undefined;
 });

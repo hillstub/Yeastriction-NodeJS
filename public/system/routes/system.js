@@ -20,7 +20,11 @@ angular.module('mean.system').config(['$stateProvider', '$urlRouterProvider',
             .state('cite', {
                 url: '/cite',
                 templateUrl: 'public/system/views/cite.html'
-            })            
+            })      
+            .state('contact', {
+                url: '/contact',
+                templateUrl: 'public/system/views/contact.html'
+            })                     
             .state('auth', {
                 templateUrl: 'public/auth/views/index.html'
             });

@@ -22,6 +22,11 @@ angular.module('mean.system').controller('HeaderController', ['$scope', '$rootSc
             'roles': ['anonymous'],
             'title': 'Paper',
             'link': 'cite'
+        },
+        {
+            'roles': ['anonymous'],
+            'title': 'Contact',
+            'link': 'contact'
         }
         ];
 
