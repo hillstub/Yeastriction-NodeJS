@@ -17,7 +17,7 @@ for (var index in window.modules) {
 }
 
 // Default modules
-var modules = ['ngCookies', 'ngResource', 'ui.bootstrap', 'ui.router', 'noCAPTCHA', 'mean.system', 'mean.loci', 'mean.crispr', 'mean.strains', 'mean.articles', 'mean.auth'];
+var modules = ['ngCookies', 'ngResource', 'ui.bootstrap', 'ui.router', 'noCAPTCHA', 'mean.system', 'mean.loci', 'mean.crispr', 'mean.strains', 'mean.auth'];
 modules = modules.concat(packageModules);
 
 // Combined modules
