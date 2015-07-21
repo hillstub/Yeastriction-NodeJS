@@ -205,11 +205,10 @@ exports.one = function(req, res) {
                     if (!err && S288C_orf) {
                         var diff_length = (S288C_orf.end_orf - S288C_orf.start_orf) - (el.end_orf - el.start_orf);
                         if(diff_length < 0){
-                            obj.error_msg.push('The length of the ORF is '+(-diff_length)+' nucleotides larger than it\'s ORF in S288C.');
+                            obj.error_msg.push('The length of the ORF is '+(-diff_length)+' nucleotides larger than its ORF in S288C.');
                         }else if(diff_length > 0){
-                            obj.error_msg.push('The length of the ORF is '+(diff_length)+' nucleotides smaller than it\'s ORF in S288C.');
+                            obj.error_msg.push('The length of the ORF is '+(diff_length)+' nucleotides smaller than its ORF in S288C.');
                         }
-                     //   console.log("S288C_orf", S288C_orf);
                     } else {
                        obj.error_msg.push('Couldn\'t find this ORF in the S288C genome');
                     }
