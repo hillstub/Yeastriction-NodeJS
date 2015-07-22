@@ -114,7 +114,6 @@
 		    </tr>
 			<tr ng-show="form.crispr_method==1 && locus.target.sequence_wo_pam">
 				<td>
-					<a value="Click me!" popover="I appeared on focus! Click away and I'll vanish..." popover-trigger="focus">Sequence </a>
 					<a  ng-click="locus.isCollapsed = !locus.isCollapsed">
 						{{locus.display_name}}_targetRNA FW {{locus.target.enzymes.join(', ')}}
 						<span class="caret"></span>

@@ -208,7 +208,7 @@ LocusSchema.method('getTargets', function(cb) {
                 console.time('rna_fold');
                 //For the vienna_rna command we need to add the rest of the RNA molecule
                 var rnas = _.map(targets,function(value,key){return value.sequence_wo_pam + rna_end;});
-                //problem with YMR306W
+                //get the RNA structure using the rna_fold module (which uses the Vienna RNAfold library)
                 vienna_rna.get_centroid_struct(rnas,function(err, rows){
                     console.timeEnd('rna_fold');
                     _.each(rows, function(structure, key) {
