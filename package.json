@@ -49,6 +49,7 @@
     "express": "^3.4.7",
     "express-validator": "^1.0.1",
     "forever": "^0.10.11",
+    "grunt": ">=0.4.5 <1.0.0",
     "grunt-cli": "^0.1.13",
     "grunt-concurrent": "latest",
     "grunt-contrib-csslint": "^0.2.0",
