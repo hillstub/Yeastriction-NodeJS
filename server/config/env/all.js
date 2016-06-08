@@ -6,7 +6,7 @@ var rootPath = path.normalize(__dirname + '/../../..');
 module.exports = {
     root: rootPath,
     port: process.env.PORT || 3000,
-    db: process.env.MONGOHQ_URL,
+    db: process.env.MONGO_URL,
     recaptcha_public_key: process.env.RECAPTCHA_PUBLIC_KEY,
     recaptcha_private_key: process.env.RECAPTCHA_PRIVATE_KEY,
     mailgun_key: process.env.MAILGUN_KEY,

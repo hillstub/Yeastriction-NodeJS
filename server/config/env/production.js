@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-    db: 'mongodb://localhost/mean-prod',
+    db: process.env.MONGO_URL,
     app: {
         name: 'Yeastriction'
     },
