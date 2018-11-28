@@ -217,7 +217,7 @@ angular.module('mean.crispr').controller('CrisprController', ['$scope', '$rootSc
                 if(!!$scope.global.user && $scope.global.user.hasOwnProperty('restriction_enzymes') && $scope.global.user.restriction_enzymes instanceof Array){
                     $scope.global.user.restriction_enzymes.forEach(function(enzyme) {
                         //Search in forward and reverse complement strand foor restriction sites, the \n serves as a boundary to prevent dot-matching
-                        if (RestrictionEnzymes.hasRestrictionSite(target.sequence_wo_pam+"\n"+$scope.reverse_complement(target.sequence_wo_pam), enzyme)) {
+                        if (RestrictionEnzymes.hasRestrictionSite(target.sequence_wo_pam+'\n'+$scope.reverse_complement(target.sequence_wo_pam), enzyme)) {
                             target.enzymes.push(enzyme);
                         }
                     });
