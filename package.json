@@ -46,7 +46,7 @@
     "connect-mongo": "0.4.0",
     "consolidate": "0.10.0",
     "dependable": "0.2.5",
-    "express": "3.5.1",
+    "express": "3.11.0",
     "express-validator": "1.0.1",
     "forever": "0.10.11",
     "grunt": "0.4.5",
